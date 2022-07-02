@@ -1,0 +1,22 @@
+<!doctype html>
+<html>
+
+<head>
+   
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+
+</head>
+<body>
+
+<label for ="name">Choose your device</label>
+<select name="name" id="name">
+<% result.forEach(function(device){ %>
+    <option value= " "><%= device.name %></option>
+
+<% }) %>
+<input type="submit" value="Submit" >
+</select>
+
+
+</body>
+</html>

@@ -1,0 +1,19 @@
+/* @media(min-width:768px){
+  .news-input{
+    width
+  }
+} */
+
+
+/*adds a gap in the first section */
+body::before{
+  display: block;
+  content: "";
+  height: 70px;
+  z-index: -1;
+}
+.bg-primary {
+  --bs-bg-opacity: 1;
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
+}
+
