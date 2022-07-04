@@ -25,6 +25,8 @@
 
 <div>
   
+
+
   <label for ="name">Choose your device</label>
   <select name="name" id="name">
   <% devices.forEach(function(device){ %>
@@ -34,14 +36,23 @@
 </select>
 <button id ="submit"> show status </button>
 
+<!--i can use here onclick in -->
 <script>
-
-  document.getElementById("submit").onclick = displayParameters;
-
-  function displayParameters(){
+  document.getElementById("submit").onclick = showstatus;
+  function showstatus(){
+    document.getElementById("name").innerHTML = parameters();
     
   }
+ 
 </script>
+
+<% devices.forEach(function(device){ %>
+     <%= device.type %>
+     <%= device.isOn %>
+     <%= device.isOpen %>
+     <%= device.temp %>
+
+<% }) %>
 
 
 <p> OUTPUT HERE OTHER PARAMETERS </p>

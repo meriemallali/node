@@ -62,24 +62,17 @@
 
 
   <section class=" bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center">
-
-  
-
-    <form method="POST" action="/deviceadded">
+    <form method="POST" action="/add-device">
         <!-- predefined list of device types -->
         <label for = "type" > select your device type : </label>
         <select name = "type" id ="type">
-        <option value="TV"> TV </option>   
-        <option value="curtains"> Curtains </option>   
-        <option value="lights"> Lights </option> 
+        <option value="tv"> TV </option>   
         <option value="radio"> Radio </option>  
         <option value="door"> Door </option>   
         <option value="dish washer"> Dish washer </option>   
         <option value="washing machine"> Washing machine </option>  
         <option value="fridge"> fridge </option>    
         <option value="oven"> Oven </option>   
-        <option value="microwave"> microwave </option>
-        <option value="fridge"> fridge </option>
         </select><br><br>
 
         <!--name of device-->
@@ -116,6 +109,10 @@
        </form>
       </section>
 
+      <a href="/" class="">
+        <i class="bi bi-arrow-left-circle-fill text-light h1"></i>
+      </a>
+    </div>
     <!-- Latest compiled JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 </body>

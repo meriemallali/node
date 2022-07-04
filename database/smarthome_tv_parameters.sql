@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `devices`
+-- Table structure for table `tv_parameters`
 --
 
-DROP TABLE IF EXISTS `devices`;
+DROP TABLE IF EXISTS `tv_parameters`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `devices` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `type` varchar(50) DEFAULT NULL,
-  `name` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `tv_parameters` (
+  `device_id` int NOT NULL,
+  `channel` varchar(40) DEFAULT NULL,
+  `isOn` tinyint(1) DEFAULT NULL,
+  `volume` int DEFAULT NULL,
+  PRIMARY KEY (`device_id`),
+  CONSTRAINT `tv_parameters_ibfk_1` FOREIGN KEY (`device_id`) REFERENCES `devices` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `devices`
+-- Dumping data for table `tv_parameters`
 --
 
-LOCK TABLES `devices` WRITE;
-/*!40000 ALTER TABLE `devices` DISABLE KEYS */;
-INSERT INTO `devices` VALUES (1,'TV','myTV'),(2,'DOOR','front door'),(3,'radio','myradio'),(16,'TV','sony TV'),(18,'microwave','samsung'),(20,'dish washer','LG'),(21,'door','back door'),(22,'lights','yellow lights'),(23,'lights','white lights'),(25,'TV','second TV'),(26,'TV','third TV');
-/*!40000 ALTER TABLE `devices` ENABLE KEYS */;
+LOCK TABLES `tv_parameters` WRITE;
+/*!40000 ALTER TABLE `tv_parameters` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tv_parameters` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-07-04 20:34:49
+-- Dump completed on 2022-07-04 20:34:48
