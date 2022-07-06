@@ -32,6 +32,8 @@ module.exports = function (app) {
         //are passed from middleware to the database tier smarthome table test
         //since it's a post req they are acccess by req.body.type/req.body.name
         // let sqlquery = "INSERT INTO test (type,name,on_off,open_close,temp,volume) VALUES (?,?,?,?,?,?)"; 
+        console.log('req.body :', req.body);
+        
         let deviceQuery = "insert into devices(type,name) values (?,?)";
 
         let deviceQueryParams = [req.body.type, req.body.name];
@@ -44,20 +46,33 @@ module.exports = function (app) {
                 sqlParametersQuery = `INSERT INTO tv_parameters(device_id, isOn, channel, volume) 
                         VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
 
-                // parameters = [req.body.name, req.body.isOn ?? false, req.body.channel,req.body.volume ?? 0];
+                parameters = [
+                    req.body.name,
+                    req.body.isOn == "on" || false,
+                    req.body.channel,
+                    req.body.volume || 0
+                ];
                 break;
             case "fridge":
                 sqlParametersQuery = `INSERT INTO fridge_parameters(device_id, isOn, temp) 
                 VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
 
-                // parameters = [req.body.name, req.body.isOn ?? false, req.body.temp ?? 0]
+                parameters = [
+                    req.body.name,
+                    req.body.isOn == "on" || false,
+                    req.body.temp || 0
+                ]
 
                 break;
             case "oven":
                 sqlParametersQuery = `INSERT INTO oven_parameters(device_id, isOn, temp) 
                 VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
 
-                // parameters = [req.body.name, req.body.isOn ?? false, req.body.temp ?? 0]
+                parameters = [
+                    req.body.name,
+                    req.body.isOn =="on" || false,
+                    req.body.temp || 0
+                ]
 
                 break;
 
@@ -65,16 +80,23 @@ module.exports = function (app) {
                 sqlParametersQuery = `INSERT INTO radio_parameters(device_id, isOn, frequency, volume) 
                 VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
 
-                // parameters = [req.body.name, req.body.isOn ?? false, req.body.frequency, req.body.volume ?? 0]
+                parameters = [
+                    req.body.name,
+                    req.body.isOn == "on" || false,
+                    req.body.frequency,
+                    req.body.volume || 0
+                ]
                 break;
             case "door":
                 sqlParametersQuery = `INSERT INTO door_parameters(device_id, isOpen, keycode) 
                 VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
 
-                // parameters = [req.body.name, req.body.isOpen ?? false, req.body.keycode]
-
+                parameters = [
+                    req.body.name,
+                    req.body.isOpen == "on" || false,
+                    req.body.keycode
+                ]
                 break;
-
             default:
                 break;
 
@@ -82,16 +104,14 @@ module.exports = function (app) {
 
 
         db.query(deviceQuery, deviceQueryParams, (err, result) => {
+            debugger;
             if (err) {
                 console.error(err.message);
                 res.status(500);
                 res.send("an error occured while adding device parameters");
             }
             else {
-                debugger;
-
-                console.log("result :", result);
-                return;
+                console.log("result of adding to device table:", result);
                 db.query(sqlParametersQuery, parameters, (err, result) => {
                     if (err) {
                         console.error(err.message);
@@ -99,7 +119,8 @@ module.exports = function (app) {
                         res.send("an error occured while adding device parameters")
                     }
                     else {
-                        res.send("your device" + result.name + "has been added");
+                        console.log("result of adding to the appropriate parameters table:", result);
+                        res.send("your device has been added successfully");
 
                     }
                 })
@@ -107,32 +128,6 @@ module.exports = function (app) {
             }
         })
 
-
-        /* 
-        let sqlquery2 = "insert into parameters (parameter_id,isOn,isOpen,temp,frequency,volume,timer,mode) values((select id from devices where devices.name = ?),?,?,?,?,?,?,?)";
-        let secondrecord = [req.body.name,req.body.isOn,req.body.isOpen,req.body.temp,req.body.frequency,
-                         req.body.volume,req.body.timer,req.body.mode];
-
-        if(secondrecord[3] == "") secondrecord[3] = undefined;
-        if(secondrecord[4] == "") secondrecord[4] = undefined;
-        if(secondrecord[5] == "") secondrecord[5] = undefined;
-        if(secondrecord[6] == "") secondrecord[6] = undefined;
-        if(secondrecord[7] == "") secondrecord[7] = undefined;
-
-        // execute fisrt sql query to insert name,type of the device in devices table
-
-        // execute second sql query to insert other parameters using foreign key "parameter_id" in parameters table
-        db.query(sqlquery2,secondrecord,(err,result) =>{
-        if(err){
-            console.error(err.message);
-        }
-        else{
-            res.send(" Your device "  + req.body.name + " is added to the database");
-
-        }
-        })
-        // need to show here a message that the device is added not using send 
-        res.redirect("/add-device"); */
 
     });
 
@@ -177,7 +172,6 @@ module.exports = function (app) {
 
         });
     });
-    debugger;
 
 
     app.post("/devicedeleted", function (req, res) {
