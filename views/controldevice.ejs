@@ -2,63 +2,45 @@
 <html>
 
 <head>
-    <title>Add device page</title>
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
+    <%- include('partials/head'); %>
 </head>
 
 <body>
-
-    <nav>
-        <div><a href="/"><i class="fa fa-home"></i> HOME </a></div>
-        <div><a href="/about"> About </a></div>
-        <div><a href="/add-device"> ADD DEVICE </a></div>
-        <div><a href="/device-status"> Device status </a></div>
-        <div><a href="/control-device">Control device</a></div>
-        <div><a href="/delete-device">Delete device </a></div>
-    </nav>
-      <h1> This is the control device page </h1>
-      <p> some text here</p>
-
-
-
-        
-
-
-
+    
+    <%- include('partials/navbar'); %>
+    
+    <h1> This is the control device page </h1>
+    <p> some text here</p>
+    
     <form method="POST" action="/devicecontroled">
         <label for ="name">Choose your device</label>
         <select name="name" id="name">
-            </select>
-    <input type="submit" value="Ok" >
+        </select>
+        <input type="submit" value="Ok" >
         <table>
-        <label for="on"> Turn on</label>
-        <input type="checkbox" id="on" name="on_off" value="on"><br>
-        <label for="off"> Turn off</label>
-        <input type="checkbox" id="off" name="on_off" value="off"><br>
-      
-        <label for="open"> Open</label>
-        <input type="checkbox" id="open" name="open_close" value="open"><br>
-        <label for="close"> Close</label>
-        <input type="checkbox" id="open" name="open_close" value="close"><br>
-
-        <p> tempr
-        <input id="temp" type="number" name="temp" min="1" max="100" value= "" /></p>
-        <p> volume
-        <input id="volume" type="number" name="volume" min="1" max="100" value= "" /></p>
-
-        <input type="submit" value="submit" />
-        </table>
-
-        
-        </form>
-
-
-
-
-
-
+            <label for="on"> Turn on</label>
+            <input type="checkbox" id="on" name="on_off" value="on"><br>
+            <label for="off"> Turn off</label>
+            <input type="checkbox" id="off" name="on_off" value="off"><br>
+            
+            <label for="open"> Open</label>
+            <input type="checkbox" id="open" name="open_close" value="open"><br>
+            <label for="close"> Close</label>
+            <input type="checkbox" id="open" name="open_close" value="close"><br>
+            
+            <p> tempr
+                <input id="temp" type="number" name="temp" min="1" max="100" value= "" /></p>
+                <p> volume
+                    <input id="volume" type="number" name="volume" min="1" max="100" value= "" /></p>
+                    
+                    <input type="submit" value="submit" />
+                </table>
+                
+                
+            </form>
+            
+            <!-- footer -->
+            <%- include('partials/footer'); %>
+            
         </body>
-
-
-        </html>
+</html>

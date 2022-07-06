@@ -3,56 +3,14 @@
 <html>
 <!--the head sections contains all the invisible information about the page-->
 <head>
-    <title> mySmarthome </title>
-    <meta name="author" content="mySmarthome app"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="refresh" content="600" />
-    <link rel="stylesheet" type="text/css" href="/stylesheet/style.css" />
-
-    <!--font awesome-->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- bootstrap icons-->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-
+  <%- include('partials/head'); %>
 </head>
 
 <!-- the body section contains all the visible information about the page-->
 <body>
-  <!--nav bar menu -->
-   <nav class="navbar navbar-expand-lg navbar-dark bg-dark py-3 fixed-top">
-    <div class="container">
-      <a href="#" class="navbar-brand" >mySmartHome</a>
-      <button class="navbar-toggler" type ="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navmenu">
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-tem">
-            <a href="/" class="nav-link">Home</a>
-          </li>
-          <li class="nav-tem">
-            <a href="/about" class="nav-link">About</a>
-          </li>
-          <li class="nav-tem">
-            <a href="/add-device" class="nav-link">Add device</a>
-          </li>
-          <li class="nav-tem">
-            <a href="/device-status" class="nav-link">Device status</a>
-          </li>
-          <li class="nav-tem">
-            <a href="/control-device" class="nav-link">Control device</a>
-          </li>
-          <li class="nav-tem">
-            <a href="/delete-device" class="nav-link">Delete device</a>
-          </li>
-        </ul>
-      </div>
-    </div> 
-    </nav>
+    <!--nav bar menu -->
+    <%- include('partials/navbar'); %>
+
     <!-- first section-->
     <section class="bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center "> <!--p-lg-0 set the padding to 0 in large screen-->
       <div class="container">
@@ -157,31 +115,7 @@
 </body>
 
 <!-- Footer -->
-<footer class="p-4 bg-dark text-white text-center position-relative">
-  <div class="container text-md-left  bg-dark">
-        <ul class="list-group list-group-flush bg-dark">
-          <li class="list-group-item bg-dark">
-        <span class="mb-4 font-weight-bold text-warning">mySmartHome</span> </li>
-        <li class="list-group-item bg-dark text-light">
-        <span>the best app ever! no just kidding </span></li>
-        </li>
-      <!-- </div> -->
-    </ul>
-      <!-- <div class="col-md-6">
-        <h5 class="mb-4 font-weight-bold text-warning">About</h5>
-        <i href="/about" class="bi bi-arrow-up-right-circle-fill text-light h1"></i>
-      </div>
-    </div> -->
+<%- include('partials/footer'); %>
 
-    
-    <a href="" class="position-absolute bottom-0 end-0 pb-5 pr-5">
-      <i class="bi bi-arrow-up-circle-fill text-light h1"></i>
-    </a>
-  </div>
-
-  <p >Copyright &copy; 2022 </p>
-</footer>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 
 </html>

@@ -2,20 +2,21 @@
 <html>
 
 <head>
-   
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
+    <%- include('partials/head'); %>
 </head>
 <body>
-
-<label for ="name">Choose your device</label>
-<select name="name" id="name">
-<% result.forEach(function(device){ %>
-    <option value= " "><%= device.name %></option>
-
-<% }) %>
-</select>
-
-
-</body>
+    
+    <%- include('partials/navbar'); %>
+    <label for ="name">Choose your device</label>
+    <select name="name" id="name">
+        <% result.forEach(function(device){ %>
+            <option value= " "><%= device.name %></option>
+            
+            <% }) %>
+        </select>
+        
+    <!-- Footer -->
+    <%- include('partials/footer'); %>
+        
+    </body>
 </html>

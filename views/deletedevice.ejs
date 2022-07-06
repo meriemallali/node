@@ -2,32 +2,24 @@
 <html>
 
 <head>
-    <title>Add device page</title>
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
-
+    <%- include('partials/head'); %>
 </head>
 
 <body>
+    
+    <%- include('partials/navbar'); %>
 
-    <nav>
-        <div><a href="/"><i class="fa fa-home"></i> HOME </a></div>
-        <div><a href="/about"> About </a></div>
-        <div><a href="/add-device"> ADD DEVICE </a></div>
-        <div><a href="/device-status"> Device status </a></div>
-        <div><a href="/control-device">Control device</a></div>
-        <div><a href="/delete-device">Delete device </a></div>
-    </nav>
-      <h1> This is the delete device page </h1>
-      
-      <form method="POST" action="/devicedeleted">
-
+    <h1> This is the delete device page </h1>
+    
+    <form method="POST" action="/devicedeleted">
+        
         <div href=""></div>
-        </form>
+    </form>
+    
+    <!-- Footer -->
+    <%- include('partials/footer'); %>
+    
+</body>
 
 
-
-
-        </body>
-
-
-        </html>
+</html>
