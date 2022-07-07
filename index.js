@@ -18,7 +18,7 @@ app.use(express.static('public'));
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
-  // password: "mysql123",
+  password: "mysql123",
   database: "smarthome"
 });
 
