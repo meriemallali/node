@@ -7,13 +7,10 @@ module.exports = function (app) {
     app.get("/about", function (req, res) {
         res.render("about.ejs");
     });
-
     app.get("/add-device", function (req, res) {
         res.render("adddevice.ejs");
 
     });
-
-
     app.get("/control-device", function (req, res) {
         res.render("controldevice.ejs");
 
@@ -23,15 +20,13 @@ module.exports = function (app) {
 
     });
 
-
     //to render the list.ejs file and pass the result as a parameter to the latter
     app.post("/add-device", function (req, res) {
         // saving data in database
         //name,type and other parameters are formed and collected from adddevice.ejs
-        //insert a record in the database name,type,other controls  
-        //are passed from middleware to the database tier smarthome table test
+        //insert a record in the database name,type,other controls 
+        //are passed from middleware to the database tier smarthome table devices
         //since it's a post req they are acccess by req.body.type/req.body.name
-        // let sqlquery = "INSERT INTO test (type,name,on_off,open_close,temp,volume) VALUES (?,?,?,?,?,?)"; 
         console.log('req.body :', req.body);
         
         let deviceQuery = "insert into devices(type,name) values (?,?)";

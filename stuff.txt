@@ -1,0 +1,138 @@
+select * from matable;
+update ...
+....
+
+shutdown;
+delete from table;...
+drop table matable;
+
+name of device : Mon clim  => ";drop table devices;"
+price : 11
+
+
+
+deviceTable
+
+insert into table devices values("";drop table devices;"",)
+
+
+drop table devices
+
+
+var deviceName = "ma tv";
+var price = 100;
+
+input = deviceName + " " + price
+
+// var sql = "insert into table devices values(?, ?)";
+
+var sql = " insert into table device(deviceName,price)VALUES(matv,100)";
+var sql = "insert into table device(deviceName,price) values(" + deviceName +", " + price + ")"
+var sql = "insert into table device(deviceName,price) values(ma tv, 11)";
+
+
+var name1 = "salim"
+var name2 = "meriem"
+
+var name = 
+
+
+
+
+
+
+
+
+
+
+
+MYSQL_PASSWORD="passwors123"
+
+environmentGet("MYSQL_PASSWORD")
+
+process.env.MYSQL_PASSWORD
+
+
+var input = {
+    name: "maclim",
+    type: "airconditionner"
+}
+
+
+
+
+switch (input.type) {
+    case "airconditionner":
+        typeToPutInDB = input.type
+        break;
+    case "oven":
+        typeToPutInDB = input.type
+        
+        break;
+    case "refirgirator":
+        typeToPutInDB = input.type
+        
+        break;
+    case "tv":
+        typeToPutInDB = input.type
+        
+        break;
+    case "dishwasher":
+        typeToPutInDB = input.type
+        
+        break;
+
+    default:
+        res.statusCode = 400;
+        break;
+
+}
+
+
+
+
+table devices :
+- id 
+- name 
+- type
+
+create table devices (id int AUTO_INCREMENT, type varchar(40), name varchar(40), primary key(id))
+
+
+
+table tv_parameters :
+- device (FK is primary key)
+- isOn
+- channel
+- volume
+ 
+create table tv_parameters(device_id , isOn bool, channel varchar(40), volume int,
+    foreign key(id) references devices(id)
+)
+
+
+
+
+table oven_parameters :
+- device (FK is primary key)
+- isOn
+- temperature
+
+
+table fridge_parameters:
+- device FK
+- isOn 
+-temp 
+
+table door_parameters:
+-FK
+-isOpen
+-keycode 
+
+
+radio 
+-FK
+-isOn
+- frequency
+-volume
+

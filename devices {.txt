@@ -1,0 +1,90 @@
+devices {
+    id (primary key)
+    name 
+    type
+    deviceStatus (foreign key)
+}
+
+types: 
+- tv  = on-off, volume, 
+- door  = open-close , 
+- air conditionner = on-off, temp
+- fridge = on-off 
+- radio
+- light
+- curtains
+- coffee machine
+- microwave 
+- washing machine
+- dish washer 
+
+
+
+statuses {
+    isOn : bool,
+    isOpen : bool,
+    temp : int
+    frequency : float,
+    volume : int
+    timer :  ,
+    mode : 
+
+}
+
+
+sql query to create table devices contains name,type and table parameters contains all parameters:
+
+create table devices(id int auto_increment, 
+                      type varchar(50) not null,
+                      name varchar(100) not null,
+                      primary key(id));
+create table parameters(id int auto_increment,parameter_id int,
+                        isOn bool, 
+                        isOpen bool,
+                        temp int,
+                        frequency float, 
+                        volume int,
+                        timer int,
+                        mode varchar(50),
+                        primary key (id),
+                        foreign key(parameter_id) references devices(id)); 
+
+sql query add device: // for bool type send true/false
+insert into devices(type,name) values ("radio","myradio"); join 
+insert into parameters (parameter_id,isON,frequency,volume) values 
+((select id from devices where devices.name = "myradio"),true,150,20);
+insert into devices(type,name) values (?,?); insert into parameters (parameter_id,isOn,isOpen,temp,frequency,
+                                   volume,timer,mode) values((select id from devices where devices.name = ?),?,
+                                   ?,?,?,?,?,?);
+
+
+sql query to return only devices names: 
+select name from devices; 
+
+sql query to return name, type and other parameters: 
+//select *from devices inner join parameters on devices.id = parameters.id; 
+//select *from devices inner join parameters on parameter_id = devices.id; 
+select *from devices inner join parameters on devices.id = parameters.parameter_id;
+sql query to update 
+
+
+delete query
+
+delete devices,parameters from parameters inner join devices on devices.id = parameters.parameter_id
+                                            -> where devices.id = 19;
+
+let sqlquery = select id from devices where devices.name = ?;
+
+delete devices,parameters from parameters inner join devices on devices.id = parameters.parameter_id
+ where parameters.parameter_id = (select id from devices where devices.name = "myradio");
+
+delete devices,parameters from parameters inner join devices on devices.id = parameters.parameter_id
+where devices.id in (select id from (select id from devices where devices.name = "myradio") );
+
+
+
+
+
+
+The trick is to use a subquery, i.e. to update a table while selecting from it itself in a subquery.
+ https://www.inforbiro.com/blog/mysql-cant-specify-target-table-for-update-in-from-clause 

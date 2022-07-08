@@ -1,0 +1,93 @@
+table : device {
+name 
+type (to select from html)
+bool isON (to select from html)  [radio button html]
+int temp  [input type number]
+int volume [input type number]
+
+}
+
+
+create table devices(
+    id INT NOT NULL AUTO_INCREMENT,
+    name varchar(40)  ,
+    type varchar(maxfihom)  ,
+    isOn bool,
+    isOpen bool, 
+    int temp, 
+    int volume,
+
+
+)
+
+create table devices (id int AUTO_INCREMENT, name varchar(40), 
+type varchar(40),bool isOn,temp int UNSIGNED, volume int UNSIGNED, PRIMARY KEY(id));
+
+create table dev(id int AUTO_INCREMENT not null, deviceName varchar(40) not null, deviceType ENUM(
+    'Tv','Oven','Door','Radio','Air conditioner','Lights','Curtains','Humidifier') not null,
+    isOn BOOLEAN ,isOpen BOOLEAN,
+    temp int UNSIGNED, volume int UNSIGNED, 
+    PRIMARY KEY(id));
+
+name        type     isOn       temp 
+samsung     tv        0          null
+aircond     aircon    1           0
+
+
+
+on/off 
+
+TV,oven,aircond,curtains, door, radio, lights,humidifier, 
+
+
+
+
+
+
+
+
+name of device : mon clim => ";drop table devices;" 
+
+
+
+drop table nametable; //deletes nametable
+
+
+
+
+input = name, type(select),
+
+
+
+>>>sql query 
+testing 
+create table testing(id int AUTO_INCREMENT not null,type varchar(40) not null,
+                 name varchar(40) not null ,isOn BOOLEAN ,isOpen BOOLEAN,
+                 temp int UNSIGNED, volume int UNSIGNED, PRIMARY KEY(id));
+
+create table test(id int AUTO_INCREMENT not null,type varchar(40) not null,
+                 name varchar(40) not null ,on_off varchar(4) null ,open_close varchar(6) null,
+                 temp int UNSIGNED null, volume int UNSIGNED null, PRIMARY KEY(id));
+
+
+create table devices(id int AUTO_INCREMENT not null,
+                    type varchar(40) not null,
+                    name varchar(40) not null,
+                    isOn bool,isOpen bool,
+                    temp int UNSIGNED null,
+                    volume int UNSIGNED null,
+                    PRIMARY KEY(id)
+                      );
+
+
+
+ insert into devi(deviceName,deviceType,isOn)values('samsung','tv',1);
+
+ -------------------
+ create table TV(id int AUTO_INCREMENT not null,name varchar(40) not null,
+                 isON BOOLEAN, volume int UNSIGNED,PRIMARY KEY(id));
+ create table fridge(id int AUTO_INCREMENT not null,name varchar(40) not null,
+                     isON BOOLEAN,   )
+
+
+create table 
