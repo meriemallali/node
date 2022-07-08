@@ -16,7 +16,7 @@
         <label for ="name">Choose your device</label>
         <select name="id" id="selected-device-id">
           <% devices.forEach(function(device){ %>
-            <% if (deviceStatus == "lala" && deviceStatus.id == device.id) { %>
+            <% if (deviceStatus != null && deviceStatus.id == device.id) { %>
               <option selected value="<%= device.id %>"><%= device.name %></option>
             <% } else { %>
               <option value="<%= device.id %>"><%= device.name %></option>
@@ -29,19 +29,76 @@
         <% if (deviceStatus) { %>
           <% switch (deviceStatus.type) {
             case "tv": %>
-          tv type
+            <div id="tv-status">
+              <div class="form-group col-sm-12">
+                <label class="control-label" for="channel">Channel :</label>
+                <input type="text" disabled name="Channel" value="<%- deviceStatus.channel %>">
+              </div>
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="tv-isOn">Power Status :</label>
+                <input type="text" name="tv-isOn" disabled value="<%- deviceStatus.isOn == 0 ? "On" : "Off" %>">
+              </div>
+              <div class="form-group col-sm-12">
+                <label for="tv-volume">Volume :</label>
+                <input type="text" name="tv-volume" disabled value="<%- deviceStatus.volume %>">
+              </div>
+            </div>
           <% break;
             case "radio": %>
-          radio type
+            <div id="radio-status">
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="radio-isOn">Power Status :</label>
+                <input type="text" name="radio-isOn" disabled value="<%- deviceStatus.isOn == 0 ? "On" : "Off" %>">
+              </div>
+
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="radio-frequency">Frequency :</label>
+                <input type="text" name="radio-frequency" disabled value="<%- deviceStatus.frequency %>">
+              </div>
+
+              <div class="form-group col-sm-12">
+                <label for="radio-volume">Volume :</label>
+                <input type="text" name="radio-volume" disabled value="<%- deviceStatus.volume %>">
+              </div>
+              
+            </div>
           <% break;
             case "oven": %>
-          oven type
+              <div id="oven-status">
+                  <div class="form-switch col-sm-12 p-0" >
+                    <label class="form-check-label" for="oven-isOn">Power Status :</label>
+                    <input type="text" name="oven-isOn" disabled value="<%- deviceStatus.isOn == 0 ? "On" : "Off" %>">
+                  </div>
+                  <div class="form-group col-sm-12">
+                    <label for="oven-temperature">Temperature (C degrees) :</label>
+                    <input type="text" name="oven-temperature" disabled value="<%- deviceStatus.temp %>">
+                  </div>
+                </div>
+          
           <% break;
             case "fridge": %>
-          fridge type
+            <div id="fridge-status">
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="fridge-isOn">Power Status :</label>
+                <input type="text" name="fridge-isOn" disabled value="<%- deviceStatus.isOn == 0 ? "On" : "Off" %>">
+              </div>
+              <div class="form-group col-sm-12">
+                <label for="fridge-temperature">Temperature (C degrees) :</label>
+                <input type="text" name="fridge-temperature" disabled value="<%- deviceStatus.temp %>">
+              </div>
+            </div>
           <% break;
             case "door": %>
-            door type
+            <div id="door-status">
+                <div class="form-switch col-sm-12 p-0" >
+                  <label class="form-check-label" for="door-isOpen">Lock Status :</label>
+                  <input type="text" name="door-isOn" disabled value="<%- deviceStatus.isOpen == 0 ? "Unlocked" : "Locked" %>">
+                </div>
+                <div class="form-group col-sm-12">
+                  <label for="door-keycode">Key code :</label>
+                  <input type="text" name="door-keycode" disabled value="<%- deviceStatus.keycode %>">
+                </div>
+              </div>        
           <% break;
             default:
             break; } %>

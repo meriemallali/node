@@ -166,7 +166,7 @@ module.exports = function (app) {
                     })
                 }
                 else {
-                    res.render("deviceStatus.ejs", { devices: devicesList});
+                    res.render("deviceStatus.ejs", { devices: devicesList, deviceStatus :  null});
 
                 }
             }
