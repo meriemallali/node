@@ -6,54 +6,53 @@
   <%- include('partials/head'); %>
   
 </head>
-<body>
+<body class="bg-dark text-light">
   <%- include('partials/navbar'); %>
+  <div class="container mt-5">
+    
+    <h1>Device status :</h1>
+    <div>
+      <form method="GET" action="/device-status">
+        <label for ="name">Choose your device</label>
+        <select name="id" id="selected-device-id">
+          <% devices.forEach(function(device){ %>
+            <% if (deviceStatus == "lala" && deviceStatus.id == device.id) { %>
+              <option selected value="<%= device.id %>"><%= device.name %></option>
+            <% } else { %>
+              <option value="<%= device.id %>"><%= device.name %></option>
+            <% } %>
+            <% }) %>
+          </select>
+          <input type="submit" id="device-status-submit" value="Show status" class="btn btn-primary">
+        </form>
 
-  <h1> device status page  </h1>
-  
-  <div>
-    
-    
-    
-    <label for ="name">Choose your device</label>
-    <select name="name" id="name">
-      <% devices.forEach(function(device){ %>
-        <option value= " "><%= device.name %></option>
-        
-        <% }) %>
-      </select>
-      <button id ="submit"> show status </button>
-      
-      <!--i can use here onclick in -->
-      <script>
-        document.getElementById("submit").onclick = showstatus;
-        function showstatus(){
-          document.getElementById("name").innerHTML = parameters();
-          
-        }
-        
-      </script>
-      
-      <% devices.forEach(function(device){ %>
-        <%= device.type %>
-        <%= device.isOn %>
-        <%= device.isOpen %>
-        <%= device.temp %>
-        
-        <% }) %>
-        
-        
-        <p> OUTPUT HERE OTHER PARAMETERS </p>
+        <% if (deviceStatus) { %>
+          <% switch (deviceStatus.type) {
+            case "tv": %>
+          tv type
+          <% break;
+            case "radio": %>
+          radio type
+          <% break;
+            case "oven": %>
+          oven type
+          <% break;
+            case "fridge": %>
+          fridge type
+          <% break;
+            case "door": %>
+            door type
+          <% break;
+            default:
+            break; } %>
+        <% } %>
         
       </div>
-      
-      
-      
-    </table>
-    <!-- Footer -->
-    <%- include('partials/footer'); %>
-
-  </body>
-  </html>
+    </div>
+    
+  </table>
+  <!-- Footer -->
+  <%- include('partials/footer'); %>
   
-  
+</body>
+</html>
