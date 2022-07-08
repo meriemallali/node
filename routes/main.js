@@ -13,13 +13,21 @@ module.exports = function (app) {
 
     });
 
-
     app.get("/control-device", function (req, res) {
         res.render("controldevice.ejs");
 
     });
     app.get("/delete-device", function (req, res) {
         res.render("deletedevice.ejs");
+
+    });
+
+    app.get("/success", function (req, res) {
+        res.render("success.ejs");
+
+    });
+    app.get("/error", function (req, res) {
+        res.render("error.ejs");
 
     });
 
@@ -33,21 +41,16 @@ module.exports = function (app) {
         //since it's a post req they are acccess by req.body.type/req.body.name
         // let sqlquery = "INSERT INTO test (type,name,on_off,open_close,temp,volume) VALUES (?,?,?,?,?,?)"; 
         console.log('req.body :', req.body);
-        
         let deviceQuery = "insert into devices(type,name) values (?,?)";
-
         let deviceQueryParams = [req.body.type, req.body.name];
-
         let parameters;
-
         let sqlParametersQuery = "";
         switch (req.body.type) {
             case "tv":
                 sqlParametersQuery = `INSERT INTO tv_parameters(device_id, isOn, channel, volume) 
-                        VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
+                        VALUES (?, ?, ?, ?)`;
 
                 parameters = [
-                    req.body.name,
                     req.body.isOn == "on" || false,
                     req.body.channel,
                     req.body.volume || 0
@@ -55,10 +58,9 @@ module.exports = function (app) {
                 break;
             case "fridge":
                 sqlParametersQuery = `INSERT INTO fridge_parameters(device_id, isOn, temp) 
-                VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
+                VALUES (?, ?, ?)`;
 
                 parameters = [
-                    req.body.name,
                     req.body.isOn == "on" || false,
                     req.body.temp || 0
                 ]
@@ -66,10 +68,9 @@ module.exports = function (app) {
                 break;
             case "oven":
                 sqlParametersQuery = `INSERT INTO oven_parameters(device_id, isOn, temp) 
-                VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
+                VALUES (?, ?, ?)`;
 
                 parameters = [
-                    req.body.name,
                     req.body.isOn =="on" || false,
                     req.body.temp || 0
                 ]
@@ -78,10 +79,9 @@ module.exports = function (app) {
 
             case "radio":
                 sqlParametersQuery = `INSERT INTO radio_parameters(device_id, isOn, frequency, volume) 
-                VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
+                VALUES (?, ?, ?, ?)`;
 
                 parameters = [
-                    req.body.name,
                     req.body.isOn == "on" || false,
                     req.body.frequency,
                     req.body.volume || 0
@@ -89,10 +89,9 @@ module.exports = function (app) {
                 break;
             case "door":
                 sqlParametersQuery = `INSERT INTO door_parameters(device_id, isOpen, keycode) 
-                VALUES ((select id from devices where devices.name = ?), ?, ?, ?)`;
+                VALUES (?, ?, ?)`;
 
                 parameters = [
-                    req.body.name,
                     req.body.isOpen == "on" || false,
                     req.body.keycode
                 ]
@@ -102,49 +101,74 @@ module.exports = function (app) {
 
         }
 
-
-        db.query(deviceQuery, deviceQueryParams, (err, result) => {
-            debugger;
+        db.query(deviceQuery, deviceQueryParams, (err, deviceResult) => {
             if (err) {
                 console.error(err.message);
                 res.status(500);
                 res.send("an error occured while adding device parameters");
             }
             else {
-                console.log("result of adding to device table:", result);
-                db.query(sqlParametersQuery, parameters, (err, result) => {
+                console.log("added device id:", deviceResult.insertId);
+                parameters.unshift(deviceResult.insertId); // add the device id as the first parameter
+                // execute second query
+                db.query(sqlParametersQuery, parameters, (err, result, fields) => {
                     if (err) {
-                        console.error(err.message);
+                        console.error(err);
                         res.status(500);
-                        res.send("an error occured while adding device parameters")
+                        res.redirect("error");
                     }
                     else {
-                        console.log("result of adding to the appropriate parameters table:", result);
-                        res.send("your device has been added successfully");
+                        console.log("result of adding to the appropriate parameters table:", result, fields);
+                        res.redirect("success");
 
                     }
                 })
-
             }
         })
-
-
     });
 
 
     //to query table test and return all the created devices with their parameters
     app.get("/device-status", function (req, res) {
-        let sqlquery2 = "select * from devices inner join parameters on devices.id = parameters.parameter_id;"; //query returns 
-
+        let devicesQuery = "select * from devices";
+        console.log('req.query :', req.query);
+        let deviceId = parseInt(req.query.id); // TODO: gotta check for validity here
+        
+        
         // execute sql query
-        db.query(sqlquery2, (err, result) => {
+        db.query(devicesQuery, (err, devicesList) => {
             if (err) {
-                console.error(err.message);
-                // res.redirect("/"); //redirect to home page
+                console.error(err);
+                res.redirect("/error");
             } else {
-                //to render the deviceStatus.ejs file and pass 
-                //the result as a parameter to the latter
-                res.render("deviceStatus.ejs", { devices: result });
+                if (deviceId) {
+                    let deviceQuery = "SELECT * FROM devices WHERE id = ? LIMIT 1";
+                    db.query(deviceQuery, [deviceId], function(err, devicesResult){
+                        if (err) {
+                            console.error(err);
+                            res.redirect("/error");
+                        } 
+                        else {
+                            let parametersTableName = devicesResult[0].type + "_parameters";
+                            let deviceStatusQuery = `SELECT * FROM devices JOIN ${parametersTableName} ON devices.id = ${parametersTableName}.device_id AND devices.id = ? LIMIT 1;`
+                            db.query(deviceStatusQuery, [deviceId], function(err, statusResult){
+                                if (err) {
+                                    console.error(err);
+                                    res.redirect("/error");
+                                } 
+                                else {
+                                    // TODO: check for empty array
+                                    console.log('status :', statusResult[0]);
+                                    res.render("deviceStatus.ejs", { devices: devicesList, deviceStatus :  statusResult[0]});
+                                }
+                            });
+                        }
+                    })
+                }
+                else {
+                    res.render("deviceStatus.ejs", { devices: devicesList});
+
+                }
             }
 
         });
