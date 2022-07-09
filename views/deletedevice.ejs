@@ -1,25 +1,32 @@
+<!-- device status page-->
 <!doctype html>
+<html lang="en">
 <html>
-
 <head>
-    <%- include('partials/head'); %>
+  <%- include('partials/head'); %>
+  
 </head>
-
-<body>
+<body class="bg-dark text-light">
+  <%- include('partials/navbar'); %>
+  <div class="container mt-5">
     
-    <%- include('partials/navbar'); %>
-
-    <h1> This is the delete device page </h1>
+    <h1> Delete a device:</h1>
+    <div>
+      <form method="POST" action="/delete-device">
+        <label for ="name">Choose the device to delete</label>
+        <select name="id" id="selected-device-id">
+          <% devices.forEach(function(device){ %>
+              <option value="<%= device.id %>"><%= device.name %></option>
+            <% }) %>
+          </select>
+          <input type="submit" id="delete-device-submit" value="Delete" class="btn btn-danger">
+        </form>
+      </div>
+    </div>
     
-    <form method="POST" action="/devicedeleted">
-        
-        <div href=""></div>
-    </form>
-    
-    <!-- Footer -->
-    <%- include('partials/footer'); %>
-    
+  </table>
+  <!-- Footer -->
+  <%- include('partials/footer'); %>
+  
 </body>
-
-
 </html>

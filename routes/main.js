@@ -14,7 +14,16 @@ module.exports = function (app) {
     });
 
     app.get("/delete-device", function (req, res) {
-        res.render("deletedevice.ejs");
+        let sqlQuery = "SELECT * FROM devices;"
+        db.query(sqlQuery, function(err, result) {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            }
+            else {
+                res.render("deleteDevice.ejs", {devices : result});
+            }
+        })
 
     });
 
@@ -27,6 +36,12 @@ module.exports = function (app) {
         res.render("success-control.ejs");
 
     });
+
+    app.get("/success-delete", function (req, res) {
+        res.render("success-delete.ejs");
+
+    });
+
     app.get("/error", function (req, res) {
         res.render("error.ejs");
     });
@@ -303,21 +318,33 @@ module.exports = function (app) {
     });
 
 
-    app.post("/devicedeleted", function (req, res) {
-        // updating data in database
+    app.post("/delete-device", function (req, res) {
+        console.log('req.body :', req.body);
+        let deviceId = req.body.id;
 
-        let id = "select id from devices where devices.name = ?";
-        let keyword = [req.body.name];
-        let sqlquery = "delete devices,parameters from parameters inner join devices on devices.id = parameters.parameter_id where devices.id = id";
+        let deviceQuery = "SELECT type FROM devices WHERE id = ?";
+        db.query(deviceQuery, [deviceId], function(err, result) {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } 
+            else {
+                let type = result[0].type;
+                let tableToDeleteFrom = type + "_parameters";
+                let parametersDeleteQuery = `DELETE FROM ${tableToDeleteFrom} WHERE device_id = ?; DELETE FROM devices WHERE id = ?`;
+                db.query(parametersDeleteQuery, [deviceId, deviceId], function(err, result) {
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/error");
+                    } 
+                    else {
+                        res.redirect("/success-delete");
+                    }
+                })
+            }
+        })
 
         
-        db.query(id, keyword, sqlquery, (err, result) => {
-            if (err) {
-                console.error("cannot delete the newrecord to db"); //for debugging purposes 
-                return console.error(err.message);
-            }
-            res.send(" Your device has been deleted successfully");
-        });
     });
 
 }

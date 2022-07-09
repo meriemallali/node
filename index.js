@@ -19,7 +19,8 @@ const db = mysql.createConnection({
   host: "localhost",
   user: "root",
   // password: "mysql123",
-  database: "smarthome"
+  database: "smarthome",
+  multipleStatements: true,
 });
 
 
