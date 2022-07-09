@@ -1,46 +1,130 @@
+<!-- device status page-->
 <!doctype html>
+<html lang="en">
 <html>
-
 <head>
-    <%- include('partials/head'); %>
+  <%- include('partials/head'); %>
+  
 </head>
+<body class="bg-dark text-light">
+  <%- include('partials/navbar'); %>
+  <div class="container mt-5">
+    
+    <h1>Control device :</h1>
+    <div>
+      <form method="GET" action="/control-device">
+        <label for ="name">Choose the device to control :</label>
+        <select name="id" id="selected-device-id">
+          <% devices.forEach(function(device){ %>
+            <% if (deviceStatus != null && deviceStatus.id == device.id) { %>
+              <option selected value="<%= device.id %>"><%= device.name %></option>
+            <% } else { %>
+              <option value="<%= device.id %>"><%= device.name %></option>
+            <% } %>
+            <% }) %>
+          </select>
+          <input type="submit" id="device-control-submit" value="Select" class="btn btn-primary">
+        </form>
 
-<body>
+        <% if (deviceStatus) { %>
+        <form method="POST" action="/control-device">
+            <!-- a hidden input to pass in the device id -->
+            <input id="device-id" name="deviceId" type="hidden" value="<%- deviceStatus.id %>">
+
+          <% switch (deviceStatus.type) {
+            case "tv": %>
+            <div id="tv-params">
+              <div class="form-group col-sm-12">
+                <label class="control-label" for="channel">Channel :</label>
+                <select class="form-control" name="channel">
+                  <% let channelOptions = [ "channel 1", "channel 2", "channel 3", "channel 4", "channel 5", "channel 6", ]; %>
+                  <% channelOptions.forEach(option => { %>
+                  <% if (deviceStatus != null && deviceStatus.channel == option){ %>
+                      <option selected value="<%= option %>"><%= option %></option>
+                      <% } else { %>
+                      <option value="<%= option %>"><%= option %></option>
+                    <% } %>
+                    <% }) %>
+                  </select>
+                </select>
+              </div>
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="tv-isOn">Power on :</label>
+                <input class="form-check-input d-block mx-auto float-none" type="checkbox" role="switch" id="tv-isOn" name="isOn">
+              </div>
+              <div class="form-group col-sm-12">
+                <label for="tv-volume">Volume :</label>
+                <input type="range" class="custom-range d-block mx-auto float-none" value="<%- deviceStatus.volume %>" name="volume" min="0" max="10" step="1" id="tv-volume">
+              </div>
+            </div>
+          <% break;
+            case "radio": %>
+            <div id="radio-params">
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="radio-isOn">Power on :</label>
+                <input class="form-check-input d-block mx-auto float-none" type="checkbox" role="switch" id="radio-isOn" name="isOn">
+              </div>
+              <div class="form-group col-sm-12">
+                <label for="radio-frequency">Frequency :</label>
+                <input type="number" class="form-control" value="<%- deviceStatus.frequency %>"name="frequency" step="any" min="0" id="radio-frequency">
+              </div>
+              <div class="form-group col-sm-12">
+                <label for="radio-volume">Volume :</label>
+                <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.volume %>" name="volume" min="0" max="10" step="1" id="radio-volume">
+              </div>
+            </div>
+          <% break;
+            case "oven": %>
+            <div id="oven-params">
+                <div class="form-switch col-sm-12 p-0" >
+                  <label class="form-check-label" for="oven-isOn">Power on :</label>
+                  <input class="form-check-input d-block mx-auto float-none" type="checkbox" role="switch" id="oven-isOn" name="isOn">
+                </div>
+                <div class="form-group col-sm-12">
+                  <label for="oven-temp">Temperature :</label>
+                  <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.temp %>" name="temp" min="0" max="100" step="10" id="oven-temp">
+                </div>
+              </div>
+          
+          <% break;
+            case "fridge": %>
+            <div id="fridge-params">
+                <div class="form-switch col-sm-12 p-0" >
+                    <label class="form-check-label" for="fridge-isOn">Power on :</label>
+                    <input class="form-check-input d-block mx-auto float-none" type="checkbox" role="switch" id="fridge-isOn" name="isOn">
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="fridge-temp">Temperature :</label>
+                    <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.temp %>" name="temp" min="-100" max="20" step="1" id="fridge-temp">
+                </div>
+            </div>
+          <% break;
+            case "door": %>
+            <div id="door-params">
+              <div class="form-switch col-sm-12 p-0" >
+                <label class="form-check-label" for="door-isOpen">Open ? :</label>
+                <input class="form-check-input d-block mx-auto float-none"  type="checkbox" role="switch" id="door-isOpen" name="isOpen">
+              </div>
+              <div class="form-group col-sm-12">
+                <label class="control-label" for="keycode">KeyCode :</label>
+                <input class="form-control" name="keycode" value="<%- deviceStatus.keycode %>" type="text" id="door-keycode">
+              </div>
+            </div>        
+          <% break;
+            default:
+            break; } %>
+            <div class="text-center mt-4">
+              <input type="submit" id="update-device-status" value="Save changes" class="btn btn-primary">
+            </div>
+        </form>
+        <% } %>
+        
+      </div>
+    </div>
     
-    <%- include('partials/navbar'); %>
-    
-    <h1> This is the control device page </h1>
-    <p> some text here</p>
-    
-    <form method="POST" action="/devicecontroled">
-        <label for ="name">Choose your device</label>
-        <select name="name" id="name">
-        </select>
-        <input type="submit" value="Ok" >
-        <table>
-            <label for="on"> Turn on</label>
-            <input type="checkbox" id="on" name="on_off" value="on"><br>
-            <label for="off"> Turn off</label>
-            <input type="checkbox" id="off" name="on_off" value="off"><br>
-            
-            <label for="open"> Open</label>
-            <input type="checkbox" id="open" name="open_close" value="open"><br>
-            <label for="close"> Close</label>
-            <input type="checkbox" id="open" name="open_close" value="close"><br>
-            
-            <p> tempr
-                <input id="temp" type="number" name="temp" min="1" max="100" value= "" /></p>
-                <p> volume
-                    <input id="volume" type="number" name="volume" min="1" max="100" value= "" /></p>
-                    
-                    <input type="submit" value="submit" />
-                </table>
-                
-                
-            </form>
-            
-            <!-- footer -->
-            <%- include('partials/footer'); %>
-            
-        </body>
+  </table>
+  <!-- Footer -->
+  <%- include('partials/footer'); %>
+  
+</body>
 </html>

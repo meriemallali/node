@@ -13,22 +13,22 @@ module.exports = function (app) {
 
     });
 
-    app.get("/control-device", function (req, res) {
-        res.render("controldevice.ejs");
-
-    });
     app.get("/delete-device", function (req, res) {
         res.render("deletedevice.ejs");
 
     });
 
-    app.get("/success", function (req, res) {
-        res.render("success.ejs");
+    app.get("/success-add", function (req, res) {
+        res.render("success-add.ejs");
+
+    });
+
+    app.get("/success-control", function (req, res) {
+        res.render("success-control.ejs");
 
     });
     app.get("/error", function (req, res) {
         res.render("error.ejs");
-
     });
 
 
@@ -119,7 +119,7 @@ module.exports = function (app) {
                     }
                     else {
                         console.log("result of adding to the appropriate parameters table:", result, fields);
-                        res.redirect("success");
+                        res.redirect("/success-add");
 
                     }
                 })
@@ -175,26 +175,131 @@ module.exports = function (app) {
     });
     
 
-    //control device page
-    app.post("/devicecontroled", function (req, res) {
-        // updating data in in database
-        let sqlquery = "select name from test";
-        " update test set on_off = ? , volume = ?, open_close = ?, temp = ?, volume = ? where name = ?";
+    app.get("/control-device", function (req, res) {
+        let devicesQuery = "select * from devices";
+        console.log('req.query :', req.query);
+        let deviceId = parseInt(req.query.id); // TODO: gotta check for validity here
+        
         // execute sql query
-        let newrecord = [req.body.on_off, req.body.open_close, req.body.temp, req.body.volume, req.body.name];
-        if (newrecord[0] == "") newrecord[0] = undefined;
-        if (newrecord[1] == "") newrecord[1] = undefined;
-        if (newrecord[2] == "") newrecord[2] = undefined;
-        if (newrecord[3] == "") newrecord[3] = undefined;
-        db.query(sqlquery, newrecord, (err, result) => {
+        db.query(devicesQuery, (err, devicesList) => {
             if (err) {
-                console.log("cannot send the newrecord to db");
-                return console.error(err.message);
+                console.error(err);
+                res.redirect("/error");
+            } else {
+                if (deviceId) {
+                    let deviceQuery = "SELECT * FROM devices WHERE id = ? LIMIT 1";
+                    db.query(deviceQuery, [deviceId], function(err, devicesResult){
+                        if (err) {
+                            console.error(err);
+                            res.redirect("/error");
+                        } 
+                        else {
+                            let parametersTableName = devicesResult[0].type + "_parameters";
+                            let deviceStatusQuery = `SELECT * FROM devices JOIN ${parametersTableName} ON devices.id = ${parametersTableName}.device_id AND devices.id = ? LIMIT 1;`
+                            db.query(deviceStatusQuery, [deviceId], function(err, statusResult){
+                                if (err) {
+                                    console.error(err);
+                                    res.redirect("/error");
+                                } 
+                                else {
+                                    // TODO: check for empty array
+                                    console.log('status :', statusResult[0]);
+                                    res.render("controlDevice.ejs", { devices: devicesList, deviceStatus :  statusResult[0]});
+                                }
+                            });
+                        }
+                    })
+                }
+                else {
+                    res.render("controlDevice.ejs", { devices: devicesList, deviceStatus :  null});
+
+                }
             }
-            // res.send(" Your device has been updated");
-            // res.render("controldevice.ejs",{result});
 
         });
+    });
+
+    //control device page
+    app.post("/control-device", function (req, res) {
+        console.log('req.body :', req.body);
+        let deviceId = req.body.deviceId;
+        // get the device type : 
+        let deviceQuery = "SELECT type FROM devices WHERE id = ?";
+        db.query(deviceQuery, [deviceId], function(err, result) {
+            if (err) {
+                console.error(err);
+                res.redirect("/error");
+            } 
+            else{
+                let type = result[0].type;
+                console.log('type :', type);
+                let parametersUpdateQuery;
+                let parameters = [];
+                switch (type) {
+                    case "tv":
+                        parametersUpdateQuery = `UPDATE tv_parameters SET isOn = ?, channel = ?, volume = ? WHERE device_id = ?`;
+
+                        parameters = [
+                            req.body.isOn == "on" || false,
+                            req.body.channel,
+                            req.body.volume || 0
+                        ];
+                        break;
+                    case "fridge":
+                        parametersUpdateQuery = `UPDATE fridge_parameters SET isOn = ?, temp = ? WHERE device_id = ?`;
+
+                        parameters = [
+                            req.body.isOn == "on" || false,
+                            req.body.temp || 0
+                        ]
+
+                        break;
+                    case "oven":
+                        parametersUpdateQuery = `UPDATE oven_parameters SET isOn = ?, temp = ? WHERE device_id = ?`;
+
+                        parameters = [
+                            req.body.isOn =="on" || false,
+                            req.body.temp || 0
+                        ]
+
+                        break;
+
+                    case "radio":
+                        parametersUpdateQuery = `UPDATE radio_parameters SET isOn = ?, frequency = ?, volume = ? WHERE device_id = ?`;
+
+                        parameters = [
+                            req.body.isOn == "on" || false,
+                            req.body.frequency,
+                            req.body.volume || 0
+                        ]
+                        break;
+                    case "door":
+                        parametersUpdateQuery = `UPDATE door_parameters SET isOpen = ?, keycode = ? WHERE device_id = ?`;
+
+                        parameters = [
+                            req.body.isOpen == "on" || false,
+                            req.body.keycode
+                        ]
+                        break;
+                    default:
+                        break;
+
+                }
+                parameters.push(deviceId);
+                console.log('sqlParametersQuery :', parametersUpdateQuery);
+                console.log('parameters :', parameters);
+                db.query(parametersUpdateQuery, parameters, function(err, updateResult){
+                    if (err) {
+                        console.error(err);
+                        res.redirect("/error");
+                    } 
+                    else {
+                        res.redirect("/success-control");
+                    }
+                })
+            }
+        })
+
     });
 
 
