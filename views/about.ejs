@@ -2,28 +2,29 @@
 <html lang="en">
 <html>
 <!--the head sections contains all the invisible information about the page-->
-  <%- include('partials/head'); %>
+<%- include('partials/head'); %>
 
-<!-- the body section contains all the visible information about the page-->
-<body>
-<!--nav bar menu -->
-<%- include('partials/navbar'); %>
+  <!-- the body section contains all the visible information about the page-->
 
- <!-- first section-->
-    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center "> 
-      <div class="container ">
-        <div class="d-sm-flex align-items-center justify-content-between">
-          <img class="img-fluid w-60 " src="/img/image5-nobg.png" alt="" />
-          <div>
-            <h3><span class="text-success"> mySmartHome</span></h3>
-            <p class="lead my-4">
-              is a web application where you can <span class="text-danger">control</span> and 
-              <span class="text-danger">monitor</span> devices in your smart home.
-            </p>
+  <body>
+    <!--nav bar menu -->
+    <%- include('partials/navbar'); %>
+
+      <!-- first section-->
+      <section class="bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center ">
+        <div class="container ">
+          <div class="d-sm-flex align-items-center justify-content-between">
+            <img class="img-fluid w-60 " src="/img/image5-nobg.png" alt="" />
+            <div>
+              <h3><span class="text-success"> mySmartHome</span></h3>
+              <p class="lead my-4">
+                is a web application where you can <span class="text-danger">control</span> and
+                <span class="text-danger">monitor</span> devices in your smart home.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
       <!-- section-->
       <section class="p-5 bg-light text-dark pb-1 text-center">
@@ -31,9 +32,9 @@
           <div class="row align-items-center justify-content-between">
             <div class="col-md p-5">
               <h3><span class="text-info"> mySmartHome </span></h3>
-              <p class="lead my-4 fw-normal"> is a dynamic web application for databases, networks and the web 
-                courswork midterm assessment that is connected to 
-                a <span class="text-primary">mysql </span> database. 
+              <p class="lead my-4 fw-normal"> is a dynamic web application for databases, networks and the web
+                courswork midterm assessment that is connected to
+                a <span class="text-primary">mysql </span> database.
               </p>
             </div>
             <div class="col-md">
@@ -42,37 +43,41 @@
           </div>
         </div>
       </section>
-<!--dev info accordion section-->
-<section class="p-5 bg-light">
-<div class="container">
-  <div class="accordion accordion-flush" id="accordionFlushExample">
-    <div class="accordion-item " >
-      <h2 class="accordion-header" id="flush-headingOne">
-        <button class="accordion-button collapsed bg-secondary text-light" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-          Information about the developer
-        </button>
-      </h2>
-       <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-        <div class="accordion-body">
-              <ul class="list-group list-group-flush lead">
-                <li class="list-group-item">
-                  <span class="fw-bold"> Full name: </span> Meriem Allali
-                </li>
-                <li class="list-group-item">
-                  <span class="fw-bold"> Student number: </span> 210106455
-                </li>
-              <li class="list-group-item">
-                <span class="fw-bold">Email <i class="bi bi-envelope "></i> : </span> meriemallali1@gmail.com
-              </li>
-              </ul>
+      <!--dev info accordion section-->
+      <section class="p-5 bg-light">
+        <div class="container">
+          <div class="accordion accordion-flush" id="accordionFlushExample">
+            <div class="accordion-item ">
+              <h2 class="accordion-header" id="flush-headingOne">
+                <button class="accordion-button collapsed bg-secondary text-light" type="button"
+                  data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false"
+                  aria-controls="flush-collapseOne">
+                  Information about the developer
+                </button>
+              </h2>
+              <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne"
+                data-bs-parent="#accordionFlushExample">
+                <div class="accordion-body">
+                  <ul class="list-group list-group-flush lead">
+                    <li class="list-group-item">
+                      <span class="fw-bold"> Full name: </span> Meriem Allali
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold"> Student number: </span> 210106455
+                    </li>
+                    <li class="list-group-item">
+                      <span class="fw-bold">Email <i class="bi bi-envelope "></i> : </span> meriemallali1@gmail.com
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</div>
-</section>
-<!-- Footer -->
-<%- include('partials/footer'); %>
-</body>
+        </div>
+      </section>
+      <!-- Footer -->
+      <%- include('partials/footer'); %>
+  </body>
+
 </html>

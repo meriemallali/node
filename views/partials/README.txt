@@ -1,0 +1,1 @@
+partials folder contains footer,head,navbar to be included in all the pages.

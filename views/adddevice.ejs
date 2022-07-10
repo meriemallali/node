@@ -1,169 +1,169 @@
 <!doctype html>
 <html>
 <!-- including the head section contains all the invisible information about the page-->
-  <%- include('partials/head'); %>
+<%- include('partials/head'); %>
 
-<!-- the body section contains all the visible information about the page-->
-<body >
-  <!--nav bar menu -->
-  <%- include('partials/navbar'); %>
-  
-  <!--form section-->
-  <section class="pt-5 p-5 bg-dark text-light">
-    <div class="container">
-      <div class="d-sm-flex align-items-center justify-content-center ">
-        <h4 class=" my-3">Add your device </h4>
-    </div>  
-    </div>
-    <div class="container p-5">
-        <form method="POST" action="/add-device">
-      <main role="main" class="pb-3">
-        <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
-          <div class="col-sm-6 col-md-4  ">
-            <div class="bg-dark text-light">
-                <div class="form-group col-sm-12 gy-3 mb-2">
-                  <label class="control-label mb-2" for="type">Select your device type :</label>
-                  <select class="form-select" name="type" id="type-select">
-                    <option selected="selected" value="tv">TV</option>
-                    <option value="radio">Radio</option>
-                    <option value="door">Door</option>
-                    <option value="fridge">Fridge</option>
-                    <option value="oven">Oven</option>
-                  </select>
-                </div>      
-              </div>      
-                <div class="form-group col-sm-12 gy-3 mb-2">
-                  <label class="control-label mb-2" for="name">Custom a name :</label>
-                  <input class="form-control" name="name" type="text" required="required" >
-                </div> 
-                <!-- Initially, all types parameters would be hidden and disabled -->
-                
-                <!-- TV (default type) -->
-                <div id="tv-params">
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="control-label mb-2" for="channel">Choose a channel:</label>
-                    <select class="form-select" name="channel">
-                      <option selected="selected" value="channel 1">Channel 1</option>
-                      <option value="channel 2">Channel 2</option>
-                      <option value="channel 3">Channel 3</option>
-                      <option value="channel 4">Channel 4</option>
-                      <option value="channel 5">Channel 5</option>
-                      <option value="channel 6">Channel 6</option>
-                    </select>
-                  </div>
-                  <div class="form-check  col-sm-12 p-0 gy-3 mb-2" >
-                     <label class="checkbox mb-2" checked data-toggle="toggle" for="tv-isOn">Switch TV :</label>
-                    <label class="custom-control teleport-switch" for="tv-isOn">
-                      <input type="checkbox" class="teleport-switch-control-input" id="tv-isOn" name="isOn">
-                      <span class="teleport-switch-control-description"  >Off</span>
-                      <span class="teleport-switch-control-indicator"></span>
-                      <span class="teleport-switch-control-description">On</span>
-                    </label>
-                  </div>
-                  <div class="form-group col-sm-12 mb-2">
-                    <label class="mb-2" for="tv-volume">Control the volume :</label>
-                    <label for="tv-volume" class="range"></label>
-                    <input type="range" class="custom-range d-block mx-auto float-none" name="volume" min="0" max="100" step="1" id="tv-volume">
-                  </div>
-                </div>
+  <!-- the body section contains all the visible information about the page-->
 
-                <!-- Radio -->
-                <div id="radio-params" class="d-none">
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="control-label mb-2" for="channel">Choose a channel :</label>
-                    <select disabled class="form-select" name="channel">
-                      <option selected="selected" value="channel 1">Channel 1</option>
-                      <option value="channel 2">Channel 2</option>
-                      <option value="channel 3">Channel 3</option>
-                      <option value="channel 4">Channel 4</option>
-                      <option value="channel 5">Channel 5</option>
-                      <option value="channel 6">Channel 6</option>
-                    </select>
-                  </div>
-                  <div class="form-switch col-sm-12 p-0 gy-3 mb-2" >
-                    <label class="checkbox mb-2" checked data-toggle="toggle" for="radio-isOn">Turn your radio :</label>
-                    <label class="custom-control teleport-switch" for="radio-isOn">
-                      <span class="teleport-switch-control-description">Off</span>
-                      <input type="checkbox" class="teleport-switch-control-input" checked="" id="radio-isOn" name="isOn">
-                      <span class="teleport-switch-control-indicator"></span>
-                      <span class="teleport-switch-control-description">On</span>
-                    </label>
-                  </div>
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="mb-2"for="radio-frequency">Frequency :</label>
-                    <input type="number" class="form-control" name="frequency" disabled step="any" min="0" id="radio-frequency">
-                  </div>
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="mb-2" for="radio-volume">Control the volume :</label>
-                    <input type="range" class="custom-range d-block mx-auto" disabled name="volume" min="0" max="10" step="1" id="radio-volume">
-                  </div>
-                </div>
+  <body>
+    <!--nav bar menu -->
+    <%- include('partials/navbar'); %>
 
-                <!-- Oven -->
-                <div id="oven-params" class="d-none">
-                  <div class="form-switch col-sm-12 p-0 gy-3 mb-2" >
-                    <label class="checkbox mb-2" checked data-toggle="toggle" for="oven-isOn">Turn your oven :</label>
-                    <label class="custom-control teleport-switch " for="oven-isOn">
-                      <input type="checkbox" class="teleport-switch-control-input" checked="" id="oven-isOn" name="isOn">
-                      <span class="teleport-switch-control-description"  >Off</span>
-                      <span class="teleport-switch-control-indicator"></span>
-                      <span class="teleport-switch-control-description">On</span>
-                    </label>
-                  </div>
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label for="oven-temp" class="mb-2">Set the temperature :</label>
-                    <input type="range" class="custom-range d-block mx-auto" disabled name="temp" min="0" max="100" step="10" id="oven-temp">
-                  </div>
-                </div>
-
-                <!-- Fridge -->
-                <div id="fridge-params" class="d-none">
-                  <div class="form-switch col-sm-12 p-0 gy-3 mb-2" >
-                    <label class="checkbox mb-2" checked data-toggle="toggle" for="fridge-isOn">Turn your fridge :</label>
-                    <label class="custom-control teleport-switch" for="fridge-isOn">
-                      <input type="checkbox" class="teleport-switch-control-input"  id="fridge-isOn" name="isOn">
-                      <span class="teleport-switch-control-description"  >Off</span>
-                      <span class="teleport-switch-control-indicator"></span>
-                      <span class="teleport-switch-control-description">On</span>
-                    </label>
-                  </div>
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label for="fridge-temp mb-2">Set the temperature :</label>
-                    <input type="range" class="custom-range d-block mx-auto" disabled name="temp" min="-10" max="10" step="1" id="fridge-temp">
-                  </div>
-                </div>
-                
-                <!-- Door -->
-                <div id="door-params" class="d-none">
-                  <div class="form-switch col-sm-12 p-0 gy-3 mb-2" >
-                    <label class="checkbox mb-2" checked data-toggle="toggle" for="door-isOpen">Switch the door :</label>
-                    <label class="custom-control teleport-switch" for="door-isOpen">
-                      <input type="checkbox" class="teleport-switch-control-input" id="door-isOpen" name="isOpen">
-                      <span class="teleport-switch-control-description" >Close</span>
-                      <span class="teleport-switch-control-indicator"></span>
-                      <span class="teleport-switch-control-description">Open</span>
-                    </label>
-                  </div>
-                  <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="control-label mb-2" for="keycode">Set a Key code :</label>
-                    <input disabled class="form-control" name="keycode" type="password" id="door-keycode">
-                  </div>
-                </div>
-                
-                
-                <div class="d-grid gap-4 col-6 mx-auto mt-4">
-                  <input type="submit" id="add-device-submit" value="Add device" class="btn btn-outline-success">
-                </div>
-              </form>
-            </div>
+      <!--form section-->
+      <section class="pt-3 p-3 bg-dark text-light">
+        <div class="container">
+          <div class="d-sm-flex align-items-center justify-content-center ">
+            <h4 class=" my-3">Add your device </h4>
           </div>
+        </div>
+        <div class="container p-3">
+          <form method="POST" action="/add-device">
+            <main role="main" class="pb-3">
+              <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
+                <div class="col-sm-6 col-md-4  ">
+                  <div class="bg-dark text-light">
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label class="control-label mb-2" for="type">Select your device type :</label>
+                      <select class="form-select" name="type" id="type-select">
+                        <option selected="selected" value="tv">TV</option>
+                        <option value="radio">Radio</option>
+                        <option value="door">Door</option>
+                        <option value="fridge">Fridge</option>
+                        <option value="oven">Oven</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group col-sm-12 gy-3 mb-2">
+                    <label class="control-label mb-2" for="name">Custom a name :</label>
+                    <input class="form-control" name="name" type="text" required="required">
+                  </div>
+                  <!-- Initially, all types parameters would be hidden and disabled -->
+
+                  <!-- TV (default type) -->
+                  <div id="tv-params">
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label class="control-label mb-2" for="channel">Choose a channel:</label>
+                      <select class="form-select" name="channel">
+                        <option selected="selected" value="channel 1">Channel 1</option>
+                        <option value="channel 2">Channel 2</option>
+                        <option value="channel 3">Channel 3</option>
+                        <option value="channel 4">Channel 4</option>
+                        <option value="channel 5">Channel 5</option>
+                        <option value="channel 6">Channel 6</option>
+                      </select>
+                    </div>
+                    <div class="form-check  col-sm-12 p-0 gy-3 mb-2">
+                      <label class="checkbox mb-2" checked data-toggle="toggle" for="tv-isOn">Switch TV :</label>
+                      <label class="custom-control teleport-switch" for="tv-isOn">
+                        <input type="checkbox" class="teleport-switch-control-input" id="tv-isOn" name="isOn">
+                        <span class="teleport-switch-control-description">Off</span>
+                        <span class="teleport-switch-control-indicator"></span>
+                        <span class="teleport-switch-control-description">On</span>
+                      </label>
+                    </div>
+                    <div class="form-group col-sm-12 mb-2">
+                      <label class="mb-2" for="tv-volume">Control the volume :</label>
+                      <label for="tv-volume" class="range"></label>
+                      <input type="range" class="custom-range d-block mx-auto float-none" name="volume" min="0"
+                        max="100" step="1" id="tv-volume">
+                    </div>
+                  </div>
+
+                  <!-- Radio -->
+                  <div id="radio-params" class="d-none">
+                    <div class="form-switch col-sm-12 p-0 gy-3 mb-2">
+                      <label class="checkbox mb-2" checked data-toggle="toggle" for="radio-isOn">Turn your radio
+                        :</label>
+                      <label class="custom-control teleport-switch" for="radio-isOn">
+                        <span class="teleport-switch-control-description">Off</span>
+                        <input type="checkbox" class="teleport-switch-control-input" checked="" id="radio-isOn"
+                          name="isOn">
+                        <span class="teleport-switch-control-indicator"></span>
+                        <span class="teleport-switch-control-description">On</span>
+                      </label>
+                    </div>
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label class="mb-2" for="radio-frequency">Frequency :</label>
+                      <input type="number" class="form-control" name="frequency" disabled step="any" min="100" max="300"
+                        step="25" id="radio-frequency">
+                    </div>
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label class="mb-2" for="radio-volume">Control the volume :</label>
+                      <input type="range" class="custom-range d-block mx-auto" disabled name="volume" min="0" max="50"
+                        step="1" id="radio-volume">
+                    </div>
+                  </div>
+
+                  <!-- Oven -->
+                  <div id="oven-params" class="d-none">
+                    <div class="form-switch col-sm-12 p-0 gy-3 mb-2">
+                      <label class="checkbox mb-2" checked data-toggle="toggle" for="oven-isOn">Turn your oven :</label>
+                      <label class="custom-control teleport-switch " for="oven-isOn">
+                        <input type="checkbox" class="teleport-switch-control-input" checked="" id="oven-isOn"
+                          name="isOn">
+                        <span class="teleport-switch-control-description">Off</span>
+                        <span class="teleport-switch-control-indicator"></span>
+                        <span class="teleport-switch-control-description">On</span>
+                      </label>
+                    </div>
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label for="oven-temp" class="mb-2">Set the temperature :</label>
+                      <input type="range" class="custom-range d-block mx-auto" disabled name="temp" min="0" max="100"
+                        step="10" id="oven-temp">
+                    </div>
+                  </div>
+
+                  <!-- Fridge -->
+                  <div id="fridge-params" class="d-none">
+                    <div class="form-switch col-sm-12 p-0 gy-3 mb-2">
+                      <label class="checkbox mb-2" checked data-toggle="toggle" for="fridge-isOn">Turn your fridge
+                        :</label>
+                      <label class="custom-control teleport-switch" for="fridge-isOn">
+                        <input type="checkbox" class="teleport-switch-control-input" id="fridge-isOn" name="isOn">
+                        <span class="teleport-switch-control-description">Off</span>
+                        <span class="teleport-switch-control-indicator"></span>
+                        <span class="teleport-switch-control-description">On</span>
+                      </label>
+                    </div>
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label for="fridge-temp mb-2">Set the temperature :</label>
+                      <input type="range" class="custom-range d-block mx-auto" disabled name="temp" min="-10" max="10"
+                        step="1" id="fridge-temp">
+                    </div>
+                  </div>
+
+                  <!-- Door -->
+                  <div id="door-params" class="d-none">
+                    <div class="form-switch col-sm-12 p-0 gy-3 mb-2">
+                      <label class="checkbox mb-2" checked data-toggle="toggle" for="door-isOpen">Switch the door
+                        :</label>
+                      <label class="custom-control teleport-switch" for="door-isOpen">
+                        <input type="checkbox" class="teleport-switch-control-input" id="door-isOpen" name="isOpen">
+                        <span class="teleport-switch-control-description">Close</span>
+                        <span class="teleport-switch-control-indicator"></span>
+                        <span class="teleport-switch-control-description">Open</span>
+                      </label>
+                    </div>
+                    <div class="form-group col-sm-12 gy-3 mb-2">
+                      <label class="control-label mb-2" for="keycode">Set a Key code :</label>
+                      <input disabled class="form-control" name="keycode" type="password" id="door-keycode">
+                    </div>
+                  </div>
+
+
+                  <div class="d-grid gap-4 col-6 mx-auto mt-4">
+                    <input type="submit" id="add-device-submit" value="Add device" class="btn btn-outline-success">
+                  </div>
+          </form>
+        </div>
+        </div>
         </main>
+        </div>
+      </section>
       </div>
-    </section>
-  </div>
-<script src="/js/add-device.js" asp-append-version="true"></script>
-    <!-- including the footer -->
-    <%- include('partials/footer'); %>
-</body>
+      <script src="/js/add-device.js" asp-append-version="true"></script>
+      <!-- including the footer -->
+      <%- include('partials/footer'); %>
+  </body>
 
 </html>

@@ -1,55 +1,60 @@
-  <!--success message page will be shown when a device is deleted-->
+<!--success message page will be shown when a device is deleted-->
 
-  <!doctype html>
-  <html>
-  
-  <head>
-    <%- include('partials/head'); %>
-  </head>
-  
-  <body class="bg-dark text-light">
-  
-    <section class="pt-5">
-      <div class="container justify-content-center">
-        <main role="main" class="pb-3">
-          <div class="row d-flex text-center mt-100">
-            <h1><i class="bi bi-emoji-laughing-fill text-success"></i></h1>
-            <h2><i class="bi bi-check2-circle text-success h1"></i> Your device has been deleted
-              <span class="text-success">successfully</span> !</h2>
-          </main>
-        </div>
-    </section>
-      <!--arrow left icon return to home page-->
-      <div class="container justify-content-center g-3">
-        <a href="/" class=""> 
-          <button class="btn btn-dark text-light"><i class="bi bi-arrow-left-circle-fill text-light h3"></i> | return to home page</button>
-        </a>
-      </div>
-      <!-- return to add-device page-->
-      <div class="container justify-content-center g-3">
-        <a href="/add-device" class="">
-          <button class="btn btn-dark text-light"><i class="bi bi-plus-circle-fill text-success h3"></i> | Add another device</button>
-        </a>
-      </div>
-      <!-- return to device-status page-->
-      <div class="container justify-content-center g-3">
-        <a href="/device-status" class="">
-          <button class="btn btn-dark text-light"><i class="bi bi-chat-dots text-warning h3"></i> | View your device status</button>
-        </a>
-      </div>
-      <!-- return to control-device page-->
-      <div class="container justify-content-center g-3">
-        <a href="/control-device" class="">
-          <button class="btn btn-dark text-light"><i class="bi bi-arrow-repeat text-primary h3"></i> | Control your device</button>
-        </a>
-      </div>
-      <!-- return to delete-device page-->
-      <div class="container justify-content-center g-3">
-        <a href="/delete-device" class="">
-          <button class="btn btn-dark text-light"><i class="bi bi-x-circle text-danger h3"></i> | Delete your device</button>
-        </a>
-      </div>
-  
-    
-  </body>
-  
+<!doctype html>
+<html>
+
+<head>
+  <%- include('partials/head'); %>
+</head>
+
+<body class="bg-dark text-light">
+
+  <section class="pt-5">
+    <div class="container justify-content-center">
+      <main role="main" class="pb-3">
+        <div class="row d-flex text-center mt-100">
+          <h1><i class="bi bi-emoji-laughing-fill text-success"></i></h1>
+          <h2><i class="bi bi-check2-circle text-success h1"></i> Your device has been deleted
+            <span class="text-success">successfully</span> !
+          </h2>
+      </main>
+    </div>
+  </section>
+  <!--arrow left icon return to home page-->
+  <div class="container justify-content-center g-3">
+    <a href="/" class="">
+      <button class="btn btn-dark text-light"><i class="bi bi-arrow-left-circle-fill text-light h3"></i> | return to
+        home page</button>
+    </a>
+  </div>
+  <!-- return to add-device page-->
+  <div class="container justify-content-center g-3">
+    <a href="/add-device" class="">
+      <button class="btn btn-dark text-light"><i class="bi bi-plus-circle-fill text-success h3"></i> | Add another
+        device</button>
+    </a>
+  </div>
+  <!-- return to device-status page-->
+  <div class="container justify-content-center g-3">
+    <a href="/device-status" class="">
+      <button class="btn btn-dark text-light"><i class="bi bi-chat-dots text-warning h3"></i> | View your device
+        status</button>
+    </a>
+  </div>
+  <!-- return to control-device page-->
+  <div class="container justify-content-center g-3">
+    <a href="/control-device" class="">
+      <button class="btn btn-dark text-light"><i class="bi bi-arrow-repeat text-primary h3"></i> | Control your
+        device</button>
+    </a>
+  </div>
+  <!-- return to delete-device page-->
+  <div class="container justify-content-center g-3">
+    <a href="/delete-device" class="">
+      <button class="btn btn-dark text-light"><i class="bi bi-x-circle text-danger h3"></i> | Delete your
+        device</button>
+    </a>
+  </div>
+
+
+</body>

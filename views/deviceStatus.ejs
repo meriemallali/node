@@ -2,191 +2,234 @@
 <!doctype html>
 <html lang="en">
 <html>
+
 <head>
   <%- include('partials/head'); %>
 
 </head>
+
 <body>
   <%- include('partials/navbar'); %>
 
-  <!-- -->
-  <section class="p-5 pt-5 bg-dark text-light">
-    <div class="container">
-      <div class="d-sm-flex align-items-center justify-content-center ">
-        <h4 class=" my-3">Device status</h4>
-    </div>  
-    </div>
+    <!-- -->
+    <section class="p-5 pt-5 bg-dark text-light">
+      <div class="container">
+        <div class="d-sm-flex align-items-center justify-content-center ">
+          <h4 class=" my-3">Device status</h4>
+        </div>
+      </div>
 
-    
-    <div class="container p-5">
-      <form method="GET" action="/device-status">
-        <main role="main" class="pb-3">
-          <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
-            <div class="col-sm-6 col-md-4  ">
-              <div class="bg-dark text-light">
+
+      <div class="container p-3">
+        <form method="GET" action="/device-status">
+          <main role="main" class="pb-3">
+            <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
+              <div class="col-sm-6 col-md-4  ">
+                <div class="bg-dark text-light">
                   <div class="form-group col-sm-12 gy-3 mb-2">
-                    <label class="control-label mb-2" for ="name">Select your device by name:</label>
+                    <label class="control-label mb-2" for="name">Select your device by name:</label>
                     <select class="form-select" name="id" id="selected-device-id">
                       <% devices.forEach(function(device){ %>
-                        <% if (deviceStatus != null && deviceStatus.id == device.id) { %>
-                          <option selected value="<%= device.id %>"><%= device.name %></option>
-                        <% } else { %>
-                          <option value="<%= device.id %>"><%= device.name %></option>
-                        <% } %>
-                        <% }) %>
-                      </select>
-                      </div>
-                      </div>
-
-                      <div class="d-grid gap-4 col-6 mx-auto">
-          <input type="submit" id="device-status-submit" value="Show status" class="btn btn-outline-warning ">
-        </div>
-        </form>
-        </div>
-
-    <div class="container p-5">
-    <div class="container align-items-center justify-content-center p-4 my-3">
-        
-        <% if (deviceStatus) { %>
-          <% switch (deviceStatus.type) {
-            case "tv": %>
-            <div id="tv-status">
-              <div class="container justify-content-center">
-                <table class="table table-bordered table-dark w-75 table-hover center ">
-                <thead class=" text-light"> 
-                  <tr>
-                    <th>Type of your device</th>
-                    <th>Name of your device</th>
-                    <th>TV channel </th>
-                    <th>Power Status </th>
-                    <th>Volume </th>
-                  </tr>
-                </thead>
-                <tbody class="text-light">
-                  <tr>
-                    <td><%- deviceStatus.type %> </td>
-                    <td><%- deviceStatus.name %> </td>
-                    <td><%- deviceStatus.channel %></td>
-                    <td><%- deviceStatus.isOn == 0 ? "On" : "Off" %></td>
-                    <td><%- deviceStatus.volume %></td>
-                  </tr>
-                  <tr>
-                </tbody>
-              </table>
-            </div>
-          <% break;
-            case "radio": %>
-            <div id="radio-status">
-              <div class="container justify-content-center">
-                <table class="table table-bordered table-dark w-75 table-hover center">
-                  <thead class=" text-light"> 
-                    <tr>
-                      <th>Type of your device</th>
-                      <th>Name of your device</th>
-                      <th>Power Status </th>
-                      <th>Frequency</th>
-                      <th>Volume </th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-light">
-                    <tr>
-                      <td><%- deviceStatus.type %> </td>
-                      <td><%- deviceStatus.name %> </td>
-                      <td><%- deviceStatus.isOn == 0 ? "On" : "Off" %></td>
-                      <td><%- deviceStatus.frequency %></td>
-                      <td><%- deviceStatus.volume %></td>
-                    </tr>
-                    <tr>
-                  </tbody>
-                </table>              
+                        <% if (deviceStatus !=null && deviceStatus.id==device.id) { %>
+                          <option selected value="<%= device.id %>">
+                            <%= device.name %>
+                          </option>
+                          <% } else { %>
+                            <option value="<%= device.id %>">
+                              <%= device.name %>
+                            </option>
+                            <% } %>
+                              <% }) %>
+                    </select>
+                  </div>
                 </div>
-            </div>
-          <% break;
-            case "oven": %>
-              <div id="oven-status">
-                <div class="container">
-                  <table class="table table-bordered table-dark w-75 table-hover center">
-                    <thead class=" text-light"> 
+
+                <div class="d-grid gap-4 col-6 mx-auto">
+                  <input type="submit" id="device-status-submit" value="Show status" class="btn btn-outline-warning ">
+                </div>
+        </form>
+      </div>
+
+      <div class="container p-3">
+        <div class="container align-items-center justify-content-center p-2 my-3">
+
+          <% if (deviceStatus) { %>
+            <% switch (deviceStatus.type) { case "tv" : %>
+              <div id="tv-status">
+                <div class="container justify-content-center">
+                  <table class="table table-bordered table-dark w-75 table-hover center ">
+                    <thead class=" text-light">
                       <tr>
                         <th>Type of your device</th>
                         <th>Name of your device</th>
+                        <th>TV channel </th>
                         <th>Power Status </th>
-                        <th>Temperature </th>
+                        <th>Volume </th>
                       </tr>
                     </thead>
                     <tbody class="text-light">
                       <tr>
-                        <td><%- deviceStatus.type %> </td>
-                        <td><%- deviceStatus.name %> </td>
-                        <td><%- deviceStatus.isOn == 0 ? "On" : "Off" %></td>
-                        <td><%- deviceStatus.temp %> °C</td>
+                        <td>
+                          <%- deviceStatus.type %>
+                        </td>
+                        <td>
+                          <%- deviceStatus.name %>
+                        </td>
+                        <td>
+                          <%- deviceStatus.channel %>
+                        </td>
+                        <td>
+                          <%- deviceStatus.isOn==0 ? "On" : "Off" %>
+                        </td>
+                        <td>
+                          <%- deviceStatus.volume %>
+                        </td>
                       </tr>
                       <tr>
                     </tbody>
-                  </table>   
+                  </table>
                 </div>
-                </div>       
-          <% break;
-            case "fridge": %>
-            <div id="fridge-status">
-              <div class="container">
-                <table class="table table-bordered table-dark w-75 table-hover center">
-                  <thead class=" text-light"> 
-                    <tr>
-                      <th>Type of your device</th>
-                      <th>Name of your device</th>
-                      <th>Power Status </th>
-                      <th>Temperature </th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-light">
-                    <tr>
-                      <td><%- deviceStatus.type %> </td>
-                      <td><%- deviceStatus.name %> </td>
-                      <td><%- deviceStatus.isOn == 0 ? "On" : "Off" %></td>
-                      <td><%- deviceStatus.temp %> °C</td>
-                    </tr>
-                    <tr>
-                  </tbody>
-                </table>   
+                <% break; case "radio" : %>
+                  <div id="radio-status">
+                    <div class="container justify-content-center">
+                      <table class="table table-bordered table-dark w-75 table-hover center">
+                        <thead class=" text-light">
+                          <tr>
+                            <th>Type of your device</th>
+                            <th>Name of your device</th>
+                            <th>Power Status </th>
+                            <th>Frequency</th>
+                            <th>Volume </th>
+                          </tr>
+                        </thead>
+                        <tbody class="text-light">
+                          <tr>
+                            <td>
+                              <%- deviceStatus.type %>
+                            </td>
+                            <td>
+                              <%- deviceStatus.name %>
+                            </td>
+                            <td>
+                              <%- deviceStatus.isOn==0 ? "On" : "Off" %>
+                            </td>
+                            <td>
+                              <%- deviceStatus.frequency %>
+                            </td>
+                            <td>
+                              <%- deviceStatus.volume %>
+                            </td>
+                          </tr>
+                          <tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <% break; case "oven" : %>
+                    <div id="oven-status">
+                      <div class="container">
+                        <table class="table table-bordered table-dark w-75 table-hover center">
+                          <thead class=" text-light">
+                            <tr>
+                              <th>Type of your device</th>
+                              <th>Name of your device</th>
+                              <th>Power Status </th>
+                              <th>Temperature </th>
+                            </tr>
+                          </thead>
+                          <tbody class="text-light">
+                            <tr>
+                              <td>
+                                <%- deviceStatus.type %>
+                              </td>
+                              <td>
+                                <%- deviceStatus.name %>
+                              </td>
+                              <td>
+                                <%- deviceStatus.isOn==0 ? "On" : "Off" %>
+                              </td>
+                              <td>
+                                <%- deviceStatus.temp %> °C
+                              </td>
+                            </tr>
+                            <tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    <% break; case "fridge" : %>
+                      <div id="fridge-status">
+                        <div class="container">
+                          <table class="table table-bordered table-dark w-75 table-hover center">
+                            <thead class=" text-light">
+                              <tr>
+                                <th>Type of your device</th>
+                                <th>Name of your device</th>
+                                <th>Power Status </th>
+                                <th>Temperature </th>
+                              </tr>
+                            </thead>
+                            <tbody class="text-light">
+                              <tr>
+                                <td>
+                                  <%- deviceStatus.type %>
+                                </td>
+                                <td>
+                                  <%- deviceStatus.name %>
+                                </td>
+                                <td>
+                                  <%- deviceStatus.isOn==0 ? "On" : "Off" %>
+                                </td>
+                                <td>
+                                  <%- deviceStatus.temp %> °C
+                                </td>
+                              </tr>
+                              <tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <% break; case "door" : %>
+                        <div id="door-status">
+                          <div class="container">
+                            <table class="table table-bordered table-dark w-75 table-hover center">
+                              <thead class=" text-light">
+                                <tr>
+                                  <th>Type of your device</th>
+                                  <th>Name of your device</th>
+                                  <th>Lock Status </th>
+                                  <th class="password">Key code </th>
+                                </tr>
+                              </thead>
+                              <tbody class="text-light">
+                                <tr>
+                                  <td>
+                                    <%- deviceStatus.type %>
+                                  </td>
+                                  <td>
+                                    <%- deviceStatus.name %>
+                                  </td>
+                                  <td>
+                                    <%- deviceStatus.isOn==0 ? "On" : "Off" %>
+                                  </td>
+                                  <td>
+                                    <%- deviceStatus.keycode %>
+                                  </td>
+                                </tr>
+                                <tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                        <% break; default: break; } %>
+                          <% } %>
+
               </div>
-            </div>
-          <% break;
-            case "door": %>
-            <div id="door-status">
-              <div class="container">
-                <table class="table table-bordered table-dark w-75 table-hover center">
-                  <thead class=" text-light"> 
-                    <tr>
-                      <th>Type of your device</th>
-                      <th>Name of your device</th>
-                      <th>Lock Status </th>
-                      <th class="password">Key code </th>
-                    </tr>
-                  </thead>
-                  <tbody class="text-light">
-                    <tr>
-                      <td><%- deviceStatus.type %> </td>
-                      <td><%- deviceStatus.name %> </td>
-                      <td><%- deviceStatus.isOn == 0 ? "On" : "Off" %></td>
-                      <td><%- deviceStatus.keycode %> </td>
-                    </tr>
-                    <tr>
-                  </tbody>
-                </table>   
-              </div>
-              </div>        
-          <% break;
-            default:
-            break; } %>
-        <% } %>
-        
-      </div>
-    </div>
-    
-  </table>
-  </section>
-  <%- include('partials/footer'); %>
+        </div>
+
+        </table>
+    </section>
+    <%- include('partials/footer'); %>
 
 </body>
 

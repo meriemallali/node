@@ -3,46 +3,48 @@
 <html lang="en">
 <html>
 <!-- including the head section contains all the invisible information about the page-->
-  <%- include('partials/head'); %>
+<%- include('partials/head'); %>
 
   <!-- the body section contains all the visible information about the page-->
-<body>
+
+  <body>
     <!--nav bar menu -->
     <%- include('partials/navbar'); %>
-    <!-- first section-->
-    <section class="bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center "> 
-      <div class="container">
-        <div class="d-sm-flex align-items-center justify-content-between">
-          <div>
-            <h1>The future <span class="text-success"> is here !</span></h1>
-            <p class="lead my-4">
-              <span class="text-danger">monitor</span> and <span class="text-danger">control</span> your smart devices online
-            </p>
+      <!-- first section-->
+      <section class="bg-dark text-light p-5 p-lg-0 pt-lg-2 text-center ">
+        <div class="container">
+          <div class="d-sm-flex align-items-center justify-content-between">
+            <div>
+              <h1>The future <span class="text-success"> is here !</span></h1>
+              <p class="lead my-4">
+                <span class="text-danger">monitor</span> and <span class="text-danger">control</span> your smart devices
+                online
+              </p>
+            </div>
+            <img class="img-fluid w-50 " src="/img/image1.png" alt="" />
           </div>
-          <img class="img-fluid w-50 " src="/img/image1.png" alt="" /> 
         </div>
-      </div>
-    </section>
+      </section>
       <!-- section boxes -->
       <section class=" p-5 ">
         <div class="container ">
           <div class="row text-center g-4">
-            <div class="col-md"> 
+            <div class="col-md">
               <div class="card bg-dark text-light">
                 <div class="card-body text-center">
                   <div class="h1 mb-3">
                     <i class="bi bi-plus-square-fill"></i>
                   </div>
                   <h5 class="card-title mb-3">
-                    add your device here 
+                    add your device here
                   </h5>
                   <p class="card-text">
-                    select your device type and give it a custom name and control it!  
+                    select your device type and give it a custom name and control it!
                   </p>
-                 <a href="/add-device" class="btn btn-outline-success"> Add your device here</a>
+                  <a href="/add-device" class="btn btn-outline-success"> Add your device here</a>
                 </div>
               </div>
-            </div> 
+            </div>
             <div class="col-md">
               <div class="card bg-dark text-light">
                 <div class="card-body text-center">
@@ -50,14 +52,14 @@
                     <i class="bi bi-chat-dots"></i>
                   </div>
                   <h5 class="card-title mb-3">
-                    status viewer 
+                    status viewer
                   </h5>
                   <p class="card-text">
                     select your device name and view the status
                   </p>
-                 <a href="/device-status" class="btn btn-outline-warning"> view your device status</a>
+                  <a href="/device-status" class="btn btn-outline-warning"> view your device status</a>
                 </div>
-              </div> 
+              </div>
             </div>
             <div class="col-md">
               <div class="card bg-dark text-light">
@@ -66,14 +68,14 @@
                     <i class="bi bi-arrow-repeat"></i>
                   </div>
                   <h5 class="card-title mb-3">
-                    update your device  
+                    update your device
                   </h5>
                   <p class="card-text">
-                    select your device name and control it!  
+                    select your device name and control it!
                   </p>
-                 <a href="/control-device" class="btn btn-outline-primary"> control your device here</a>
+                  <a href="/control-device" class="btn btn-outline-primary"> control your device here</a>
                 </div>
-              </div>  
+              </div>
             </div>
             <div class="col-md">
               <div class="card bg-dark text-light">
@@ -82,14 +84,14 @@
                     <i class="bi bi-x-circle"></i>
                   </div>
                   <h5 class="card-title mb-3">
-                    delete your device 
+                    delete your device
                   </h5>
                   <p class="card-text">
-                    select your device and delete it from mySmartHome app  
+                    select your device and delete it from mySmartHome app
                   </p>
-                 <a href="/delete-device" class="btn btn-outline-danger "> delete your device here</a>
+                  <a href="/delete-device" class="btn btn-outline-danger "> delete your device here</a>
                 </div>
-              </div> 
+              </div>
             </div>
           </div>
         </div>
@@ -103,16 +105,16 @@
             </div>
             <div class="col-md p-5">
               <h2> why <span class="text-info"> mySmartHome </span>?</h2>
-              <p class="lead fw-normal"> we provide a full control of your smart home  
+              <p class="lead fw-normal"> we provide a full control of your smart home
                 with a posibility of adding and deleting any device of your choice
               </p>
             </div>
           </div>
         </div>
       </section>
-</body>
+  </body>
 
-<!-- including the footer -->
+  <!-- including the footer -->
   <%- include('partials/footer'); %>
 
-  </html>
+</html>
