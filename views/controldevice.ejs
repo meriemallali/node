@@ -1,46 +1,171 @@
+<!-- device status page-->
 <!doctype html>
+<html lang="en">
 <html>
-
 <head>
-    <%- include('partials/head'); %>
+  <!--including the head-->
+  <%- include('partials/head'); %>
 </head>
+<body class="bg-dark text-light">
+  <!--including the nav bar-->
+  <%- include('partials/navbar'); %>
 
-<body>
+
+  <section class="pt-5 p-5 bg-dark text-light">
+    <div class="container">
+      <div class="d-sm-flex align-items-center justify-content-center ">
+        <h4 class=" my-3">Control your device </h4>
+    </div>  
+    </div>
+
+    <div class="container p-5">
+      <form method="GET" action="/control-device">
+        <main role="main" class="pb-3">
+          <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
+            <div class="col-sm-6 col-md-4  ">
+              <div class="bg-dark text-light">
+                  <div class="form-group col-sm-12 gy-3 mb-2">
+        <label  class="control-label mb-2" for ="name">Choose the device to control :</label>
+        <select class="form-select" name="id" id="selected-device-id">
+          <% devices.forEach(function(device){ %>
+            <% if (deviceStatus != null && deviceStatus.id == device.id) { %>
+              <option selected value="<%= device.id %>"><%= device.name %></option>
+            <% } else { %>
+              <option value="<%= device.id %>"><%= device.name %></option>
+            <% } %>
+            <% }) %>
+          </select>
+          </div>
+          </div>
+          <div class="d-grid gap-4 col-6 mx-auto ">
+            <input type="submit" id="device-control-submit" value="Select " class="btn btn-outline-primary ">
+          </div>
+        </form>
+
+        <div class="container p-5">
+        <% if (deviceStatus) { %>
+        <form method="POST" action="/control-device">
+            <!-- a hidden input to pass in the device id -->
+            <input id="device-id" name="deviceId" type="hidden" value="<%- deviceStatus.id %>">
+
+          <% switch (deviceStatus.type) {
+            case "tv": %>
+            <div id="tv-params">
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label class="control-label mb-2" for="channel">Set channel :</label>
+                <select class="form-control" name="channel">
+                  <% let channelOptions = [ "channel 1", "channel 2", "channel 3", "channel 4", "channel 5", "channel 6", ]; %>
+                  <% channelOptions.forEach(option => { %>
+                  <% if (deviceStatus != null && deviceStatus.channel == option){ %>
+                      <option selected value="<%= option %>"><%= option %></option>
+                      <% } else { %>
+                      <option value="<%= option %>"><%= option %></option>
+                    <% } %>
+                    <% }) %>
+                  </select>
+                </select>
+              </div>
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label class="form-check-label mb-2" for="tv-isOn">Change power status :</label>
+                <label class="custom-control teleport-switch" for="tv-isOn">
+                  <input type="checkbox" class="teleport-switch-control-input" id="tv-isOn" name="isOn">
+                  <span class="teleport-switch-control-description"  >Off</span>
+                  <span class="teleport-switch-control-indicator"></span>
+                  <span class="teleport-switch-control-description">On</span>
+                </label>              </div>
+              <div class="form-group col-sm-12">
+                <label for="tv-volume" class="mb-2">Change volume :</label>
+                <input type="range" class="custom-range d-block mx-auto float-none" value="<%- deviceStatus.volume %>" name="volume" min="0" max="10" step="1" id="tv-volume">
+              </div>
+            </div>
+          <% break;
+            case "radio": %>
+            <div id="radio-params">
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label class="form-check-label mb-2" for="radio-isOn">Change power status :</label>
+                <label class="custom-control teleport-switch" for="radio-isOn">
+                  <span class="teleport-switch-control-description">Off</span>
+                  <input type="checkbox" class="teleport-switch-control-input" checked="" id="radio-isOn" name="isOn">
+                  <span class="teleport-switch-control-indicator"></span>
+                  <span class="teleport-switch-control-description">On</span>
+                </label>              </div>
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label for="radio-frequency" class="mb-2">Set radio frequency :</label>
+                <input type="number" class="form-control" value="<%- deviceStatus.frequency %>"name="frequency" step="any" min="0" id="radio-frequency">
+              </div>
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label for="radio-volume" class="mb-2">Change volume :</label>
+                <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.volume %>" name="volume" min="0" max="10" step="1" id="radio-volume">
+              </div>
+            </div>
+          <% break;
+            case "oven": %>
+            <div id="oven-params">
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                  <label class="form-check-label mb-2" for="oven-isOn">Change power status :</label>
+                  <label class="custom-control teleport-switch " for="oven-isOn">
+                    <input type="checkbox" class="teleport-switch-control-input" checked="" id="oven-isOn" name="isOn">
+                    <span class="teleport-switch-control-description"  >Off</span>
+                    <span class="teleport-switch-control-indicator"></span>
+                    <span class="teleport-switch-control-description">On</span>
+                  </label>                </div>
+                <div class="form-group col-sm-12 gy-3 mb-2">
+                  <label for="oven-temp" class="mb-2">Change oven temperature :</label>
+                  <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.temp %>" name="temp" min="0" max="100" step="10" id="oven-temp">
+                </div>
+              </div>
+          
+          <% break;
+            case "fridge": %>
+            <div id="fridge-params">
+                <div class="form-group col-sm-12 gy-3 mb-2">
+                    <label class="form-check-label mb-2" for="fridge-isOn">Change power status :</label>
+                    <label class="custom-control teleport-switch" for="fridge-isOn">
+                      <input type="checkbox" class="teleport-switch-control-input"  id="fridge-isOn" name="isOn">
+                      <span class="teleport-switch-control-description"  >Off</span>
+                      <span class="teleport-switch-control-indicator"></span>
+                      <span class="teleport-switch-control-description">On</span>
+                    </label>                </div>
+                <div class="form-group col-sm-12 gy-3 mb-2">
+                    <label for="fridge-temp" class="mb-2">Change fridge temperature :</label>
+                    <input type="range" class="custom-range d-block mx-auto" value="<%- deviceStatus.temp %>" name="temp" min="-100" max="20" step="1" id="fridge-temp">
+                </div>
+            </div>
+          <% break;
+            case "door": %>
+            <div id="door-params">
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label class="form-check-label mb-2" for="door-isOpen">Switch the door :</label>
+                <label class="custom-control teleport-switch" for="door-isOpen">
+                  <input type="checkbox" class="teleport-switch-control-input" id="door-isOpen" name="isOpen">
+                  <span class="teleport-switch-control-description" >Close</span>
+                  <span class="teleport-switch-control-indicator"></span>
+                  <span class="teleport-switch-control-description">Open</span>
+                </label>
+              </div>
+              <div class="form-group col-sm-12 gy-3 mb-2">
+                <label class="control-label mb-2" for="keycode">Update your keyCode :</label>
+                <input class="form-control" name="keycode" value="<%- deviceStatus.keycode %>" id="door-keycode">
+              </div>
+            </div>        
+          <% break;
+            default:
+            break; } %>
+            <div class="d-grid gap-4 col-6 mx-auto mt-4">
+              <input type="submit" id="device-control-submit" value="Save changes " class="btn btn-outline-success ">
+            </div>
+
+        </form>
+        <% } %>
+        
+      </div>
+    </div>
+    </div>
     
-    <%- include('partials/navbar'); %>
-    
-    <h1> This is the control device page </h1>
-    <p> some text here</p>
-    
-    <form method="POST" action="/devicecontroled">
-        <label for ="name">Choose your device</label>
-        <select name="name" id="name">
-        </select>
-        <input type="submit" value="Ok" >
-        <table>
-            <label for="on"> Turn on</label>
-            <input type="checkbox" id="on" name="on_off" value="on"><br>
-            <label for="off"> Turn off</label>
-            <input type="checkbox" id="off" name="on_off" value="off"><br>
-            
-            <label for="open"> Open</label>
-            <input type="checkbox" id="open" name="open_close" value="open"><br>
-            <label for="close"> Close</label>
-            <input type="checkbox" id="open" name="open_close" value="close"><br>
-            
-            <p> tempr
-                <input id="temp" type="number" name="temp" min="1" max="100" value= "" /></p>
-                <p> volume
-                    <input id="volume" type="number" name="volume" min="1" max="100" value= "" /></p>
-                    
-                    <input type="submit" value="submit" />
-                </table>
-                
-                
-            </form>
-            
-            <!-- footer -->
-            <%- include('partials/footer'); %>
-            
-        </body>
+  </table>
+  </section>
+ 
+  <%- include('partials/footer'); %>
+  
+</body>
 </html>

@@ -13,7 +13,6 @@ const port = 8089;
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static('public'));
-// app.set("views",__dirname + "/views");
 
 const db = mysql.createConnection({
   host: "localhost",

@@ -1,25 +1,48 @@
+<!-- device status page-->
 <!doctype html>
+<html lang="en">
 <html>
-
 <head>
-    <%- include('partials/head'); %>
+  <%- include('partials/head'); %>
+  
 </head>
+<body class="bg-dark text-light">
+  <%- include('partials/navbar'); %>
 
-<body>
-    
-    <%- include('partials/navbar'); %>
 
-    <h1> This is the delete device page </h1>
+  <section class="pt-5 p-5 bg-dark text-light">
+    <div class="container">
+      <div class="d-sm-flex align-items-center justify-content-center ">
+        <h4 class=" my-3">Delete a device</h4>
+    </div>  
+    </div>
+  
     
-    <form method="POST" action="/devicedeleted">
-        
-        <div href=""></div>
-    </form>
+    <div class="container p-5">
+      <form method="POST" action="/delete-device">
+        <main role="main" class="pb-3">
+          <div class="row mb-2 row-cols-1 d-flex justify-content-md-center ">
+            <div class="col-sm-6 col-md-4  ">
+              <div class="bg-dark text-light">
+                  <div class="form-group col-sm-12 gy-3 mb-2">
+                    <label  class="control-label mb-2" for ="name">Choose the device to delete by name</label>
+                    <select class="form-select" name="id" id="selected-device-id">
+                        <% devices.forEach(function(device){ %>
+                            <option value="<%= device.id %>"><%= device.name %></option>
+                          <% }) %>
+                    </select>
+                    </div>
+                    </div>
+          <div class="d-grid gap-4 col-6 mx-auto">
+            <input type="submit" id="device-status-submit" value="Delete device" class="btn btn-outline-danger ">
+          </div>
+        </form>
+      </div>
+    </div>
     
-    <!-- Footer -->
-    <%- include('partials/footer'); %>
-    
+  </table>
+  <!-- Footer -->
+  <%- include('partials/footer'); %>
+  
 </body>
-
-
 </html>
